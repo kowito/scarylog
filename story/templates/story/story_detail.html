@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<p></p>
+<table class="table">
+<tr><td>name</td><td>{{ object.name }}</td></tr>
+<tr><td>slug</td><td>{{ object.slug }}</td></tr>
+<tr><td>coordinate</td><td>{{ object.coordinate }}</td></tr>
+<tr><td>description</td><td>{{ object.description }}</td></tr>
+<tr><td>created_at</td><td>{{ object.created_at }}</td></tr>
+<tr><td>updated_at</td><td>{{ object.updated_at }}</td></tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit Story</a>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block content %}
+<table class="table">
+<tr>
+<td>ID</td>
+    <td>{% trans "name" %}</td>
+    <td>{% trans "description" %}</td>
+    <td>{% trans "created" %}</td>
+    <td>{% trans "updated" %}</td>
+</tr>
+{% for object in object_list %}
+<tr>
+    <td>{{object.pk}}</td>
+    <td><a href="{{object.get_absolute_url}}">{{object}}</a></td>
+    <td>{{ object.description }}</td>
+    <td>{{ object.created_at }}</td>
+    <td>{{ object.updated_at }}</td>
+</tr>
+{% endfor %}
+</table><a class="btn btn-primary" href="{% url 'story_story_create' %}">Create new Story</a>
+{% endblock %}
