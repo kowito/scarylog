@@ -10,6 +10,9 @@ django-debug-toolbar = "*"
 [packages]
 django = "*"
 psycopg2-binary = "*"
+django-extensions = "*"
+django-location-field = "*"
+django-rest-framework = "*"
 
 [requires]
 python_version = "3.7"
