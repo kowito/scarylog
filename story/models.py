@@ -11,7 +11,7 @@ class Story(models.Model):
     name = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='name', blank=True)
     coordinate = PlainLocationField(based_fields=['story'], zoom=7)
-    description = models.TextField(max_length=1000)
+    description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

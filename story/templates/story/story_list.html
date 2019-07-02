@@ -1,19 +1,30 @@
 {% extends "base.html" %}
 {% load static i18n %}
 {% block content %}
-<div id="map"></div>
+<div class="container-fluid">
+<div id="map" style="clear:both; height:600px;"></div> 
+
 {% for object in object_list %}
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title"><a href="{{object.get_absolute_url}}">{{object.name}}</a></h5>
-    <p class="card-text">{{ object.description }}</p>
+    <p class="card-text">{{ object.description|truncatechars_html:100 }}</p>
     {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
     <p class="card-text">{{ object.updated_at }}</p>
   </div>
 </div>
-
-
-
-
 {% endfor %}
+</div>
+
+<script>
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 13.7563309, lng: 100.644},
+      zoom: 8
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_API_KEY}}&callback=initMap"
+async defer></script>
 {% endblock %}
