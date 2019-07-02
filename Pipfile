@@ -14,6 +14,7 @@ django-extensions = "*"
 django-location-field = "*"
 django-rest-framework = "*"
 django-crispy-forms = "*"
+django-storages = "*"
 
 [requires]
 python_version = "3.7"
