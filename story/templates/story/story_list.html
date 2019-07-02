@@ -1,22 +1,19 @@
 {% extends "base.html" %}
 {% load static i18n %}
 {% block content %}
-<table class="table">
-<tr>
-<td>ID</td>
-    <td>{% trans "name" %}</td>
-    <td>{% trans "description" %}</td>
-    <td>{% trans "created" %}</td>
-    <td>{% trans "updated" %}</td>
-</tr>
+<div id="map"></div>
 {% for object in object_list %}
-<tr>
-    <td>{{object.pk}}</td>
-    <td><a href="{{object.get_absolute_url}}">{{object}}</a></td>
-    <td>{{ object.description }}</td>
-    <td>{{ object.created_at }}</td>
-    <td>{{ object.updated_at }}</td>
-</tr>
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><a href="{{object.get_absolute_url}}">{{object.name}}</a></h5>
+    <p class="card-text">{{ object.description }}</p>
+    {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+    <p class="card-text">{{ object.updated_at }}</p>
+  </div>
+</div>
+
+
+
+
 {% endfor %}
-</table><a class="btn btn-primary" href="{% url 'story_story_create' %}">{% trans "Tell your story" %}</a>
 {% endblock %}
