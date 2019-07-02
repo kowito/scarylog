@@ -1,0 +1,24 @@
+branch-defaults:
+  feature/landingpage:
+    environment: scarylog-env
+    group_suffix: null
+  feature/trip:
+    environment: scarylog-env
+    group_suffix: null
+  master:
+    environment: scarylog-env
+    group_suffix: null
+global:
+  application_name: scarylog
+  branch: null
+  default_ec2_keyname: scarylog-prd.pem
+  default_platform: Python 3.6
+  default_region: ap-southeast-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: scarylog
+  repository: null
+  sc: git
+  workspace_type: Application
