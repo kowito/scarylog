@@ -18,5 +18,5 @@
     <td>{{ object.updated_at }}</td>
 </tr>
 {% endfor %}
-</table><a class="btn btn-primary" href="{% url 'story_story_create' %}">Create new Story</a>
+</table><a class="btn btn-primary" href="{% url 'story_story_create' %}">{% trans "Tell your story" %}</a>
 {% endblock %}

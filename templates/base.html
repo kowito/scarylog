@@ -14,10 +14,11 @@
     <style type="text/css">
         html,
         body{
-            background-color: black;
+            background-color: #343a40;
+            color: #ccc;
         }
         nav{
-            background-color: black;
+            background-color: #343a40;
         }
 
         .navbar-brand{
@@ -38,8 +39,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="#">{% trans "Scarylog!" %}</a>
+        <a class="navbar-brand" href="/">{% trans "Scarylog!" %}</a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li><a class="btn btn-outline-danger" href="{% url 'story_story_create' %}">{% trans "Tell your story" %}</a></li>
           
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -48,8 +50,12 @@
         </form>
       </div>
     </nav>
+    <div class="container">
+    {% block content %}
     <h1 class="text-center">{% trans "Scarylog! : Location-base ghost story" %}</h1>
-
+    {% endblock content %}    
+    </div>
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

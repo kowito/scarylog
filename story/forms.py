@@ -6,4 +6,4 @@ class StoryForm(forms.ModelForm):
 
     class Meta:
         model = Story
-        fields = ['name', 'coordinate', 'description', 'author']
+        fields = ['name', 'coordinate', 'description']
