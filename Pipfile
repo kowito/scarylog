@@ -16,6 +16,7 @@ django-rest-framework = "*"
 django-crispy-forms = "*"
 django-storages = "*"
 boto3 = "*"
+django-jet = "*"
 
 [requires]
 python_version = "3.7"
