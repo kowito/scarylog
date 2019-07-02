@@ -43,11 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'location_field.apps.DefaultConfig',
     'crispy_forms',
-
     'story',
-
-
-
 ]
 
 
@@ -149,7 +145,7 @@ if not DEBUG:
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_CUSTOM_DOMAIN = 'assets.scaylog.com'
 else:
-    INSTALLED_APPS = ['debug_toolbar', ]
+    INSTALLED_APPS = INSTALLED_APPS + ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
 
 
