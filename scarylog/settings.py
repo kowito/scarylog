@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '79$x6lwq@kiv0b9d&9i_-f%8jsm_4kyhldmp@m(z5b$*$s#3s%'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -131,11 +131,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/assets/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'assets/'),
+
+]
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = 'assets.scaylog.com'
+AWS_S3_SECURE_URLS = True
+AWS_DEFAULT_ACL = 'private'
 
 LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
 LOCATION_FIELD = {
-    'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
+    'provider.google.api': '//maps.google.com/maps/api/js',
     'provider.google.api_key': os.getenv('GOOGLE_API_KEY'),
     'provider.google.api_libraries': '',
     'provider.google.map.type': 'ROADMAP',
