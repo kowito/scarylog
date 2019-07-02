@@ -1,12 +1,6 @@
 branch-defaults:
-  feature/landingpage:
-    environment: scarylog-env
-    group_suffix: null
-  feature/trip:
-    environment: scarylog-env
-    group_suffix: null
   master:
-    environment: null
+    environment: scarylog-prd-env
     group_suffix: null
 global:
   application_name: scarylog
