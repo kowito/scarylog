@@ -46,12 +46,12 @@ INSTALLED_APPS = [
 
     'story',
 
-    'debug_toolbar',
+
+
 ]
 
-MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -148,6 +148,9 @@ if not DEBUG:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_CUSTOM_DOMAIN = 'assets.scaylog.com'
+else:
+    INSTALLED_APPS = ['debug_toolbar', ]
+    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
 
 
 LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
