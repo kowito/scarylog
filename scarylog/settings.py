@@ -160,12 +160,14 @@ AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_SECURE_URLS = True
 AWS_DEFAULT_ACL = 'private'
 STATIC_URL = '/assets/'
-LOCATION_FIELD_PATH = 'location_field'
+
 if not DEBUG or 'collectstatic' in sys.argv:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_CUSTOM_DOMAIN = 'cdn.scarylog.com'
+    LOCATION_FIELD_PATH = "{}/{}".format(AWS_S3_CUSTOM_DOMAIN, 'location_field')
 else:
+    LOCATION_FIELD_PATH = 'location_field'
     INSTALLED_APPS = INSTALLED_APPS + ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
 
