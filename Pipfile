@@ -19,6 +19,7 @@ boto3 = "*"
 django-jet = "*"
 django-allauth = "*"
 rollbar = "*"
+django-froala-editor = "*"
 
 [requires]
 python_version = "3.7"

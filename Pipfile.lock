@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5c0760fc6648950634e4c22709c758df32f244fcbbaaccafe92da459ee286ae9"
+            "sha256": "86a7e5310becaed2d4bc4ca5d69293a8c02cf07ba461ee3fb1f4d38379538548"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -82,6 +82,13 @@
             ],
             "index": "pypi",
             "version": "==2.1.9"
+        },
+        "django-froala-editor": {
+            "hashes": [
+                "sha256:7eafc2a3cd259ffc19556ce55963bc4c6be82d2cea53369a3a03b7ed0b88b686"
+            ],
+            "index": "pypi",
+            "version": "==3.0.1"
         },
         "django-jet": {
             "hashes": [

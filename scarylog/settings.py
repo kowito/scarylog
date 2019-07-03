@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'location_field.apps.DefaultConfig',
     'crispy_forms',
+    'froala_editor',
     'story',
 
 
@@ -177,7 +178,10 @@ LOCATION_FIELD = {
     'provider.google.map.type': 'ROADMAP',
 }
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
+FROALA_EDITOR_PLUGINS = ('align', 'char_counter', 'code_beautifier', 'code_view', 'colors', 'draggable', 'emoticons',
+                         'entities', 'fullscreen', 'inline_style',
+                         'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style', 'quick_insert', 'quote', 'save', 'table',
+                         'url', )
 ROLLBAR = {
     'access_token': os.getenv('ROLLBAR_TOKEN'),
     'environment': 'development' if DEBUG else 'production',

@@ -20,6 +20,8 @@ from scarylog import settings
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+    path('froala_editor/', include('froala_editor.urls')),
+
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('pages/', include('django.contrib.flatpages.urls')),

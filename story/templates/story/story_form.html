@@ -7,8 +7,8 @@
         <div class="col">
             <form method="post">
             {% csrf_token %}
+                {{ form.media }}
                 {{form.media}}
-
             {{form|crispy}}
             <button class="btn btn-outline-danger" type="submit">{% trans "Save" %}</button>
             </form>
