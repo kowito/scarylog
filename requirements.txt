@@ -5,10 +5,11 @@ certifi==2019.6.16
 chardet==3.0.4
 defusedxml==0.6.0
 django-allauth==0.39.1
+django-ckeditor==5.7.1
 django-crispy-forms==1.7.2
 django-extensions==2.1.9
-django-froala-editor==3.0.1
 django-jet==1.0.8
+django-js-asset==1.2.2
 django-location-field==2.1.0
 django-rest-framework==0.1.0
 django-storages==1.7.1
