@@ -127,10 +127,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/assets/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets/'),
-    BASE_DIR,
 
 ]
 
@@ -146,11 +145,12 @@ if not DEBUG:
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_CUSTOM_DOMAIN = 'cdn.scarylog.com'
 else:
+    STATIC_URL = '/assets/'
     INSTALLED_APPS = INSTALLED_APPS + ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
 
+    # LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
 
-LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
 LOCATION_FIELD = {
     'provider.google.api': '//maps.google.com/maps/api/js',
     'provider.google.api_key': os.getenv('GOOGLE_API_KEY'),
