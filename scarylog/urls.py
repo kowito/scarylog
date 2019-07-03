@@ -20,8 +20,9 @@ from scarylog import settings
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
-
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
+
     path('', StoryListView.as_view(), name='home'),
     path('story/', include('story.urls')),
 

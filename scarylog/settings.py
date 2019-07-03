@@ -40,10 +40,20 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     'location_field.apps.DefaultConfig',
     'crispy_forms',
     'story',
+
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # 'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.google',
 ]
 
 
@@ -112,6 +122,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -157,3 +173,4 @@ LOCATION_FIELD = {
     'provider.google.api_libraries': '',
     'provider.google.map.type': 'ROADMAP',
 }
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

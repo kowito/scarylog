@@ -37,6 +37,8 @@
             margin-top: 2rem;
         }
     </style>
+    {% block extrastyle %}
+    {% endblock extrastyle %}
 
   </head>
   <body>
@@ -56,7 +58,8 @@
         </form>
       </div>
     </nav>
-    
+    {% block account.content %}
+    {% endblock %}
     {% block content %}
     <div class="container">
     <h1 class="text-center">{% trans "Scarylog! : Location-base ghost story" %}</h1>
