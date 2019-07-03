@@ -127,7 +127,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 SITE_ID = 1
 
 # Internationalization
