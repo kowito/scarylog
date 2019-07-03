@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -162,7 +162,7 @@ AWS_S3_SECURE_URLS = True
 AWS_DEFAULT_ACL = 'private'
 STATIC_URL = '/assets/'
 LOCATION_FIELD_PATH = 'location_field'
-if not DEBUG:
+if not DEBUG or 'collectstatic' in sys.argv:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_CUSTOM_DOMAIN = 'cdn.scarylog.com'
