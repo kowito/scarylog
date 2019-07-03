@@ -45,9 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'location_field.apps.DefaultConfig',
     'crispy_forms',
-    'froala_editor',
+    'ckeditor',
     'story',
-
 
     'allauth',
     'allauth.account',
@@ -178,10 +177,21 @@ LOCATION_FIELD = {
     'provider.google.map.type': 'ROADMAP',
 }
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-FROALA_EDITOR_PLUGINS = ('align', 'char_counter', 'code_beautifier', 'code_view', 'colors', 'draggable', 'emoticons',
-                         'entities', 'fullscreen', 'inline_style',
-                         'line_breaker', 'link', 'lists', 'paragraph_format', 'paragraph_style', 'quick_insert', 'quote', 'save', 'table',
-                         'url', )
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar_story': [
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Blockquote', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', ]},
+            {'name': 'links', 'items': ['Link', 'Unlink']},
+            '/',  # put this to force next toolbar on new line
+        ],
+        'toolbar': 'story',
+    },
+}
+
 ROLLBAR = {
     'access_token': os.getenv('ROLLBAR_TOKEN'),
     'environment': 'development' if DEBUG else 'production',

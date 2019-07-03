@@ -3,7 +3,7 @@ from django.conf import settings
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 from location_field.models.plain import PlainLocationField
-from froala_editor.fields import FroalaField
+from ckeditor.fields import RichTextField
 
 
 class Story(models.Model):
@@ -12,7 +12,7 @@ class Story(models.Model):
     name = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='name', blank=True)
     coordinate = PlainLocationField(based_fields=['name'], zoom=12)
-    description = FroalaField(theme='dark')
+    description = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

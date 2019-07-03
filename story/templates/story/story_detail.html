@@ -7,7 +7,7 @@
             <div class="card w-100 story-card">
               <div class="card-body">
                 <h1 class="card-title">{{ object.name }}</h1>
-                <p class="card-text">{{ object.description }}</p>
+                <p class="card-text">{{ object.description|safe }}</p>
                 <p>{{ object.created_at }}</p>
                 <a class="btn btn-primary" href="{{object.get_update_url}}">{% trans "Edit Story" %}</a>
               </div>
