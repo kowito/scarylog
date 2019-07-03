@@ -11,7 +11,7 @@ class Story(models.Model):
     # Fields
     name = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='name', blank=True)
-    coordinate = PlainLocationField(based_fields=['story'], zoom=7)
+    coordinate = PlainLocationField(based_fields=['name'], zoom=12)
     description = FroalaField(theme='dark')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
