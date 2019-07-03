@@ -160,7 +160,7 @@ AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_SECURE_URLS = True
 AWS_DEFAULT_ACL = 'private'
 STATIC_URL = '/assets/'
-LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
+LOCATION_FIELD_PATH = 'location_field'
 if not DEBUG:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
