@@ -18,6 +18,7 @@ django-storages = "*"
 boto3 = "*"
 django-jet = "*"
 django-allauth = "*"
+rollbar = "*"
 
 [requires]
 python_version = "3.7"
