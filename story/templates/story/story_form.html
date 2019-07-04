@@ -18,7 +18,8 @@
 {% endblock %}
 
 {% block extrajs %}
-{{ form.media }}
+
+<script type="text/javascript" src="{% static 'location_field/js/form.js' %}"></script>
 <script>
 window.onload = function() {
     // var startPos;
