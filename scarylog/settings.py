@@ -199,5 +199,8 @@ ROLLBAR = {
     'environment': 'development' if DEBUG else 'production',
     'root': BASE_DIR,
 }
+
+
 import rollbar
 rollbar.init(**ROLLBAR)
+rollbar.report_message('LOCATION_FIELD_PATH: {} '.format(LOCATION_FIELD_PATH))
