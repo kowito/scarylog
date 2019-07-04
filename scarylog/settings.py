@@ -167,11 +167,11 @@ if not DEBUG or 'collectstatic' in sys.argv:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_CUSTOM_DOMAIN = 'cdn.scarylog.com'
-    # LOCATION_FIELD_PATH = "{}/{}".format(AWS_S3_CUSTOM_DOMAIN, 'location_field')
+    LOCATION_FIELD_PATH = "{}/location_field".format(AWS_S3_CUSTOM_DOMAIN)
 else:
     INSTALLED_APPS = INSTALLED_APPS + ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
-    # LOCATION_FIELD_PATH = 'location_field'
+    LOCATION_FIELD_PATH = "{}/location_field".format(STATIC_URL)
 
 
 LOCATION_FIELD = {
@@ -179,15 +179,7 @@ LOCATION_FIELD = {
     'provider.google.api_key': os.getenv('GOOGLE_API_KEY'),
     'provider.google.api_libraries': '',
     'provider.google.map.type': 'ROADMAP',
-    # 'resources.root_path': "{}/{}".format('cdn.scarylog.com', 'location_field'),
-    # 'resources.media': {
-    #     'js': (
-    #         # "https://{}/{}".format('cdn.scarylog.com', 'location_field') + '/js/form.js',
-    #         # "https://{}/{}".format('cdn.scarylog.com', 'location_field') + '/leaflet.js',
-    #     ),
-    # },
 }
-LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CKEDITOR_CONFIGS = {
     'default': {
