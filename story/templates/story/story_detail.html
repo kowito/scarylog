@@ -8,7 +8,7 @@
               <div class="card-body">
                 <h1 class="card-title">{{ object.name }}</h1>
                 <p class="card-text">{{ object.description|safe }}</p>
-                <p>{{ object.created_at }}</p>
+                <p>{{ object.created_at|timesince }}</p>
                 <a class="btn btn-primary" href="{{object.get_update_url}}">{% trans "Edit Story" %}</a>
               </div>
             </div>
@@ -19,7 +19,7 @@
               <div class="card-body">
                 <h1 class="card-title text-center">{{ object.author }}</h1>
                 <p class="card-text">{{ object.author }} short bio</p>
-                <p>{{ object.created_at }}</p>
+                
               </div>
             </div>
         </div>
