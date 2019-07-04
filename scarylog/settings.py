@@ -181,7 +181,7 @@ else:
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
     LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
 
-rollbar.report_message('LOCATION_FIELD_PATH: {} '.format(LOCATION_FIELD_PATH))
+
 LOCATION_FIELD = {
     'map.provider': 'mapbox',
     'provider.mapbox.access_token': 'pk.eyJ1Ijoic2Nhcnlsb2ciLCJhIjoiY2p4b2xnOHRwMDg4MDNudXF2dnNoZ2w3NCJ9.ptdreoxFUFHQZAW2VQuzTw',
