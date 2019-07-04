@@ -10,16 +10,14 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-position: bottom;
-        height: 450px;
+        /*height: 450px;*/
     }
 
     body{
         background: none;
     }
     .story-caption {
-        
         margin: auto;
-
     }
 
     .profile{
@@ -37,6 +35,10 @@
         display: flex;
         align-items: center;
     }
+    .author {
+        margin-top: 1rem;
+        color: #b93f04;
+    }
 </style>
 {% endblock extrastyle %}
 
@@ -45,7 +47,7 @@
     <div class="story-caption">
         <h1 class="text-center">{{ object.name }}</h1>
         <img src="{% static "avatar.jpg" %}" class="rounded-circle mx-auto d-block profile" alt="{{ object.author }}">
-        <div class="text-center ">{{ object.author }}</div>
+        <div class="text-center author">{{ object.author }}</div>
     </div>
 </div>
 <div class="container">
