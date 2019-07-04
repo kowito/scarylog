@@ -164,7 +164,9 @@ if not DEBUG or 'collectstatic' in sys.argv:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_CUSTOM_DOMAIN = 'cdn.scarylog.com'
-    LOCATION_FIELD_PATH = AWS_S3_CUSTOM_DOMAIN + 'location_field'
+    LOCATION_FIELD_PATH = "https://{}/{}".format(AWS_S3_CUSTOM_DOMAIN, 'location_field')
+    rollbar.report_message('PRD STATIC_URL: {} '.format(STATIC_URL))
+
 else:
     INSTALLED_APPS = INSTALLED_APPS + ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
