@@ -3,37 +3,57 @@
 
 {% block extrastyle %}
 <style type="text/css">
-    body{
+    .jumbotron{
         background-image: 
-        linear-gradient(to top, rgba(0, 0, 0, 1) 20%, rgba(100, 51, 51, 0.6) 86%, rgba(51, 51, 51, 0.8) 100%),
+        linear-gradient(to top, rgba(52, 58, 64, 1) 20%, rgba(0,0,0, 0.2) 100%),
         url({% static "bg.jpg" %});
         background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom;
+        height: 450px;
+    }
+
+    body{
+        background: none;
+    }
+    .story-caption {
+        
+        margin: auto;
+
+    }
+
+    .profile{
+        box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+        width: 150px;
+        margin-top: 5rem;
+    }
+
+    .story-caption h1{
+            color: #b93f04;
+        }
+    .vertical-center {
+        min-height: 100%;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
     }
 </style>
 {% endblock extrastyle %}
 
 {% block content %}
+<div class="jumbotron vertical-center">
+    <div class="story-caption">
+        <h1 class="text-center">{{ object.name }}</h1>
+        <img src="{% static "avatar.jpg" %}" class="rounded-circle mx-auto d-block profile" alt="{{ object.author }}">
+        <div class="text-center ">{{ object.author }}</div>
+    </div>
+</div>
 <div class="container">
-    <div class="row justify-content-between">
-        <div class="col-7 col-pull-2">
-            <div class="card w-100 story-card">
-              <div class="card-body">
-                <h1 class="card-title">{{ object.name }}</h1>
-                <p class="card-text">{{ object.description|safe }}</p>
-                <p>{{ object.created_at|timesince }}</p>
-                <a class="btn btn-primary" href="{{object.get_update_url}}">{% trans "Edit Story" %}</a>
-              </div>
-            </div>
-        </div>
-
-        <div class="col-4">
-            <div class="card w-100 story-card">
-              <div class="card-body">
-                <h1 class="card-title text-center">{{ object.author }}</h1>
-                <p class="card-text">{{ object.author }} short bio</p>
-                
-              </div>
-            </div>
+    <div class="row">
+        <div class="col">
+            <p class="card-text">{{ object.description|safe }}</p>
+            <p>{{ object.created_at|timesince }}</p>
+            <a class="btn btn-primary" href="{{object.get_update_url}}">{% trans "Edit Story" %}</a>
         </div>
     </div>    
 </div>
