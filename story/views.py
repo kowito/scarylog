@@ -11,6 +11,7 @@ import os
 
 class StoryListView(ListView):
     model = Story
+    template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
         context = super(StoryListView, self).get_context_data(**kwargs)
