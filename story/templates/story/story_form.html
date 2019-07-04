@@ -16,27 +16,4 @@
 {% endblock %}
 {% block extrajs %}
 <script type="text/javascript" src="{% static 'location_field/js/form.js' %}"></script>
-<script type="text/javascript" src="{% static 'location_field/leaflet.js' %}"></script>
-<script>
-window.onload = function() {
-    // var startPos;
-    var geoSuccess = function(position) {
-        startPos = position;
-        console.log(startPos);
-        console.log(startPos.coords);
-        console.log(startPos.coords.latitude);
-        console.log(startPos.coords.longitude);
-    };
-    var geoError = function(error) {
-        console.log('Error occurred. Error code: ' + error.code);
-        // error.code can be:
-        //   0: unknown error
-        //   1: permission denied
-        //   2: position unavailable (error response from location provider)
-        //   3: timed out
-    };
-    console.log("Loading");
-    navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-};
-</script>
 {% endblock extrajs %}
