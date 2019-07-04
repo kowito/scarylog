@@ -167,7 +167,7 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_SECURE_URLS = True
 AWS_DEFAULT_ACL = 'private'
-
+STATIC_URL = '/assets/'
 
 if not DEBUG or 'collectstatic' in sys.argv:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -176,7 +176,7 @@ if not DEBUG or 'collectstatic' in sys.argv:
 
 
 else:
-    STATIC_URL = '/assets/'
+
     INSTALLED_APPS = INSTALLED_APPS + ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
     LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
@@ -184,9 +184,21 @@ else:
 
 LOCATION_FIELD = {
     'map.provider': 'mapbox',
+    'map.zoom': 12,
+
+    # Mapbox
     'provider.mapbox.access_token': 'pk.eyJ1Ijoic2Nhcnlsb2ciLCJhIjoiY2p4b2xnOHRwMDg4MDNudXF2dnNoZ2w3NCJ9.ptdreoxFUFHQZAW2VQuzTw',
-    'provider.mapbox.max_zoom': 15,
-    'provider.mapbox.id': 'cjxomi1xz2m8y1cmy5cpcw2ol',
+    'provider.mapbox.max_zoom': 12,
+    'provider.mapbox.id': 'scarylog.cjxomi1xz2m8y1cmy5cpcw2ol',
+
+    # misc
+    'resources.root_path': 'https://cdn.scarylog.com/location_field',
+    'resources.media': {
+        'js': (
+            'https://cdn.scarylog.com/location_field' + '/js/form.js',
+            'https://cdn.scarylog.com/location_field' + '/leaflet.js',
+        ),
+    },
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
