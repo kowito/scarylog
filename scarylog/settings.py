@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = eval(os.getenv('DEBUG'))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['scarylog.com', 'www.scarylog.com', '127.0.0.1']
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
@@ -42,10 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
     'location_field.apps.DefaultConfig',
     'crispy_forms',
+    'ckeditor',
     'story',
-
 
     'allauth',
     'allauth.account',
@@ -65,6 +66,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 
 ]
 
@@ -126,7 +129,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+DEFAULT_HTTP_PROTOCOL = "https"
 SITE_ID = 1
 
 # Internationalization
@@ -139,38 +143,76 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+ROLLBAR = {
+    'access_token': os.getenv('ROLLBAR_TOKEN'),
+    'environment': 'development' if DEBUG else 'production',
+    'root': BASE_DIR,
+}
+
+
+import rollbar
+rollbar.init(**ROLLBAR)
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets/'),
 
 ]
 
-
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_SECURE_URLS = True
 AWS_DEFAULT_ACL = 'private'
+STATIC_URL = '/assets/'
 
-if not DEBUG:
+if not DEBUG or 'collectstatic' in sys.argv:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_CUSTOM_DOMAIN = 'cdn.scarylog.com'
+
+
 else:
-    STATIC_URL = '/assets/'
+
     INSTALLED_APPS = INSTALLED_APPS + ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
+    LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
 
-    # LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
 
 LOCATION_FIELD = {
-    'provider.google.api': '//maps.google.com/maps/api/js',
-    'provider.google.api_key': os.getenv('GOOGLE_API_KEY'),
-    'provider.google.api_libraries': '',
-    'provider.google.map.type': 'ROADMAP',
+    'map.provider': 'mapbox',
+    'map.zoom': 12,
+
+    # Mapbox
+    'provider.mapbox.access_token': 'pk.eyJ1Ijoic2Nhcnlsb2ciLCJhIjoiY2p4b2xnOHRwMDg4MDNudXF2dnNoZ2w3NCJ9.ptdreoxFUFHQZAW2VQuzTw',
+    'provider.mapbox.max_zoom': 12,
+    'provider.mapbox.id': 'scarylog.cjxomi1xz2m8y1cmy5cpcw2ol',
+
+    # misc
+    'resources.root_path': 'https://cdn.scarylog.com/location_field',
+    'resources.media': {
+        'js': (
+            'https://cdn.scarylog.com/location_field' + '/js/form.js',
+            'https://cdn.scarylog.com/location_field' + '/leaflet.js',
+        ),
+    },
 }
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar_story': [
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Blockquote', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', ]},
+            {'name': 'links', 'items': ['Link', 'Unlink']},
+            '/',  # put this to force next toolbar on new line
+        ],
+        'toolbar': 'story',
+    },
+}

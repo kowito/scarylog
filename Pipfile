@@ -18,6 +18,8 @@ django-storages = "*"
 boto3 = "*"
 django-jet = "*"
 django-allauth = "*"
+rollbar = "*"
+django-ckeditor = "*"
 
 [requires]
 python_version = "3.7"

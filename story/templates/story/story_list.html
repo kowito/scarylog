@@ -8,9 +8,9 @@
 <div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title"><a href="{{object.get_absolute_url}}">{{object.name}}</a></h5>
-    <p class="card-text">{{ object.description|truncatechars_html:100 }}</p>
+    <p class="card-text">{{ object.description|truncatechars_html:100|safe }}</p>
     {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
-    <p class="card-text">{{ object.updated_at }}</p>
+    <p class="card-text">{{ object.updated_at|timesince }}</p>
   </div>
 </div>
 {% endfor %}
@@ -21,7 +21,7 @@
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 13.7563309, lng: 100.644},
-      zoom: 8
+      zoom: 12
     });
   }
 </script>
