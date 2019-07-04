@@ -153,7 +153,6 @@ STATICFILES_DIRS = [
 
 ]
 
-
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
@@ -165,16 +164,18 @@ if not DEBUG or 'collectstatic' in sys.argv:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_CUSTOM_DOMAIN = 'cdn.scarylog.com'
+    LOCATION_FIELD_PATH = AWS_S3_CUSTOM_DOMAIN + 'location_field'
 else:
     INSTALLED_APPS = INSTALLED_APPS + ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
+    LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
 
 
 LOCATION_FIELD = {
-    'provider.google.api': '//maps.google.com/maps/api/js',
-    'provider.google.api_key': os.getenv('GOOGLE_API_KEY'),
-    'provider.google.api_libraries': '',
-    'provider.google.map.type': 'ROADMAP',
+    'map.provider': 'mapbox',
+    'provider.mapbox.access_token': 'pk.eyJ1Ijoic2Nhcnlsb2ciLCJhIjoiY2p4b2xnOHRwMDg4MDNudXF2dnNoZ2w3NCJ9.ptdreoxFUFHQZAW2VQuzTw',
+    'provider.mapbox.max_zoom': 15,
+    'provider.mapbox.id': 'cjxomi1xz2m8y1cmy5cpcw2ol',
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

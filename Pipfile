@@ -20,7 +20,6 @@ django-jet = "*"
 django-allauth = "*"
 rollbar = "*"
 django-ckeditor = "*"
-django-map-widgets = "*"
 
 [requires]
 python_version = "3.7"
