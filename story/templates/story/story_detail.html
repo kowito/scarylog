@@ -68,7 +68,9 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            <div class="sharethis-inline-share-buttons"></div>
             <p class="card-text">{{ object.description|safe }}</p>
+            <div class="sharethis-inline-share-buttons"></div>
             <p>{{ object.created_at|timesince }}</p>
             {% if request.user == object.author %}
                 <a class="btn btn-primary" href="{{object.get_update_url}}">{% trans "Edit Story" %}</a>    
