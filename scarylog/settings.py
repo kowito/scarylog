@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = eval(os.getenv('DEBUG'))
 
-ALLOWED_HOSTS = ['scarylog.com', 'www.scarylog.com', '127.0.0.1']
+ALLOWED_HOSTS = ['scarylog.com', 'www.scarylog.com', '127.0.0.1', 'localhost']
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'location_field.apps.DefaultConfig',
     'crispy_forms',
     'ckeditor',
+    'stdimage',
     'story',
+    'apps.profile',
 
     'allauth',
     'allauth.account',
@@ -130,6 +132,9 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+
+AUTH_PROFILE_MODULE = 'apps.profile.UserProfile'
+
 DEFAULT_HTTP_PROTOCOL = "https"
 SITE_ID = 1
 

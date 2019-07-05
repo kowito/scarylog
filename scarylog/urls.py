@@ -27,7 +27,7 @@ urlpatterns = [
     path('pages/', include('django.contrib.flatpages.urls')),
     path('', StoryListView.as_view(), name='home'),
     path('story/', include('story.urls')),
-
+    path('profile/', include('apps.profile.urls')),
 ]
 
 if settings.DEBUG:

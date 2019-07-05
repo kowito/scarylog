@@ -20,6 +20,8 @@ django-jet = "*"
 django-allauth = "*"
 rollbar = "*"
 django-ckeditor = "*"
+django-froala-editor= "*"
+django-stdimage = "*"
 
 [requires]
 python_version = "3.7"
