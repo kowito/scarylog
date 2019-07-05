@@ -14,19 +14,19 @@ GENDER_CHOICES = (
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
     photo = StdImageField(null=True,
-                            blank=True,
-                            upload_to='profile',
-                            variations={
-                                'retina': (960, 960, True),
-                                'normal': (240, 240, True),
-                                'thumbnail': (160, 160, True)}
-                            )
+                          blank=True,
+                          upload_to='profile',
+                          variations={
+                              'retina': (960, 960, True),
+                              'normal': (240, 240, True),
+                              'thumbnail': (160, 160, True)}
+                          )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-    website = models.URLField(default='', blank=True)
-    bio = models.TextField(default='', blank=True)
-    phone = models.CharField(max_length=20, blank=True, default='')
-    city = models.CharField(max_length=100, default='', blank=True)
-    country = models.CharField(max_length=100, default='', blank=True)
+    website = models.URLField(default='', null=True, blank=True)
+    bio = models.TextField(default='', null=True, blank=True)
+    phone = models.CharField(max_length=20, default='', null=True, blank=True)
+    city = models.CharField(max_length=100, default='', null=True, blank=True)
+    country = models.CharField(max_length=100, default='', null=True, blank=True)
 
     def __str__(self):
         return self.user.username
