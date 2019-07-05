@@ -51,6 +51,10 @@
         .created{
             font-size: 0.8rem;
         }
+        #sticky-footer {
+          flex-shrink: none;
+          margin-top: 5rem;
+        }
 
 
     </style>
@@ -77,6 +81,12 @@
     <h1 class="text-center">{% trans "Scarylog! : Location-base ghost story" %}</h1>
     </div>
     {% endblock content %}
+    <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+        <div class="container text-center">
+          <small>Copyright &copy; scarylog.com</small>
+        </div>
+    </footer>
+        
     {% block extrajs %}
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
