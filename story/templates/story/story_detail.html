@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static i18n %}
 {% block extrastyle %}
-<meta property="og:url" content="{{object.get_absolute_url}}" />
+<meta property="og:url" content="https://scarylog.me{{object.get_absolute_url}}" />
 <meta property="og:title" content="ScaryLog: {{ object.name }}" />
 <meta name="description" content="{{ object.description|striptags|truncatechars:100 }}">
 <meta property="og:type" content="article" />
