@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static i18n account crispy_forms_tags %}
+
+{% block extrastyle %}
+    <style type="text/css">
+        #profile_photo_input {
+            display: none;
+        }
+        #profile_photo_preview {
+            height: auto;
+            max-width: 220px;
+            margin: auto;
+        }
+    </style>
+    {{ profile_form.media.css }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="flow-text">{% trans "Update your information" %}</h2>
+                <div class="profile_image d-flex justify-content-center" name="profile_image">
+                    <div class="avatar">
+                        <img id="profile_photo_preview" class="img-responsive rounded-circle middle"
+                             src="{{ user.profile.get_picture_thumbnail }}"/>
+                    </div>
+                </div>
+                <div class="clearfix d-flex justify-content-center">
+                    <form id="profile_photo_form" method="POST"
+                          action={% url 'profile_picture_url' %} enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input id="profile_photo_input" style="color: transparent;" id="id_photo" name="photo"
+                               type="file">
+                        <button id="profile_photo_submit" type="submit" class="btn btn-secondary" disabled>
+                            {% trans "Change Photo" %}
+                        </button>
+                    </form>
+                </div>
+
+                <form action="." method="POST" class="padding">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            {{ user_form|crispy }}
+
+                        </div>
+                        <div class="col">
+                            {{ profile_form|crispy }}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-danger">
+                        {% trans "Submit" %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{ user.get_profile_pic }}
+{% endblock %}
+
+{% block extrajs %}
+    {{ block.super }}
+    {{ profile_form.media.js }}
+    <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#profile_photo_preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $profileInput = $('#profile_photo_input');
+        $('#profile_photo_preview').click(function () {
+            $profileInput.click();
+        });
+        $profileInput.change(function () {
+            readURL(this);
+            $('#profile_photo_submit')
+                .attr('disabled', false)
+                .removeClass('btn-secondary')
+                .addClass('btn btn-outline-danger')
+                .html('{% trans "Save Photo" %}')
+            ;
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% load static i18n %}
+
+{% if user.is_authenticated %}
+<ul class="nav">
+    <li class="nav-item mr-1">
+        <img id="nav-profile-photo" class="img-responsive rounded-circle middle"  src="{{ user.profile.get_picture_thumbnail}}"/>
+    </li>
+    <li class="nav-item dropdown ml-auto">
+        <a href="#" class="btn btn-outline-light dropdown-toggle " data-toggle="dropdown">
+          {{request.user}}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a href="/profile/update" class="dropdown-item">{% trans "Update Profile" %}</a>
+            <div class="dropdown-divider"></div>
+            <a href="/accounts/logout/"class="dropdown-item">{% trans "Logout" %}</a>
+        </div>
+    </li>
+</ul>
+{% else %}
+<div class="nav nav-item ml-auto">
+    <a href="/accounts/login/" class="btn btn-outline-light">{% trans "Login" %}</a>
+</div>
+{% endif %}

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
     <title>{% block title %}{% trans "Scarylog! : Location-base ghost story" %}{% endblock title %}</title>
     <link href="https://fonts.googleapis.com/css?family=Butcherman|Nosifer&display=swap" rel="stylesheet">
     <style type="text/css">
@@ -33,11 +34,11 @@
             background-color: #343a40;
         }
         .navbar-brand{
-            color: red !important; 
+            color: red !important;
             font-family: 'Nosifer', cursive;"
         }
         h1{
-            color: red; 
+            color: red;
             font-family: 'Butcherman', cursive;
             padding-top: 1rem;
         }
@@ -54,8 +55,10 @@
           flex-shrink: none;
           margin-top: 5rem;
         }
-
-
+        #nav-profile-photo{
+            height: auto;
+            max-width: 40px;
+        }
     </style>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143316844-1"></script>
@@ -81,6 +84,9 @@
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li><a class="btn btn-outline-danger" href="{% url 'story_story_create' %}">{% trans "Tell your story" %}</a></li>
         </ul>
+        <div class="navbar-profile">
+            {% include 'profile_menu.html' %}
+        </div>
       </div>
     </nav>
     {% block account.content %}
@@ -95,7 +101,7 @@
           <small>Copyright &copy; scarylog.com</small>
         </div>
     </footer>
-        
+
     {% block extrajs %}
 
     <!-- Optional JavaScript -->
@@ -103,6 +109,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-notify@3.1.3/bootstrap-notify.min.js"></script>
     {% endblock extrajs %}
     <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5d1fb870e6c4ff001250887b&product='inline-share-buttons' async='async'></script>
   </body>
