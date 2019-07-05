@@ -3,7 +3,7 @@
 {% if user.is_authenticated %}
 <ul class="nav">
     <li class="nav-item mr-1">
-        <img id="nav-profile-photo" class="img-responsive rounded-circle middle"  src="{{STATIC_URL}}{{ user.profile.get_picture_thumbnail|default:'avatar.jpg'}}"/>
+        <img id="nav-profile-photo" class="img-responsive rounded-circle middle"  src="{{ STATIC_URL w}}{{ user.profile.get_picture_thumbnail|default:'avatar.jpg'}}"/>
     </li>
     <li class="nav-item dropdown ml-auto">
         <a href="#" class="btn btn-outline-light dropdown-toggle " data-toggle="dropdown">
