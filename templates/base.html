@@ -5,10 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <title>{% block title %}{% trans "Scarylog! : Location-base ghost story" %}{% endblock title %}</title>
     <link href="https://fonts.googleapis.com/css?family=Butcherman|Nosifer&display=swap" rel="stylesheet">
     <style type="text/css">
@@ -30,15 +28,16 @@
             margin-inline-end: 0px;
             color: rgba(0,0,0,.84);
         }
+
         nav{
             background-color: #343a40;
         }
         .navbar-brand{
-            color: red !important;
+            color: red !important; 
             font-family: 'Nosifer', cursive;"
         }
         h1{
-            color: red;
+            color: red; 
             font-family: 'Butcherman', cursive;
             padding-top: 1rem;
         }
@@ -51,11 +50,25 @@
         .created{
             font-size: 0.8rem;
         }
+        #sticky-footer {
+          flex-shrink: none;
+          margin-top: 5rem;
+        }
         #nav-profile-photo{
             height: auto;
             max-width: 40px;
         }
     </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143316844-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-143316844-1');
+    </script>
+
     {% block extrastyle %}
     {% endblock extrastyle %}
 
@@ -82,12 +95,20 @@
     <h1 class="text-center">{% trans "Scarylog! : Location-base ghost story" %}</h1>
     </div>
     {% endblock content %}
+    <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+        <div class="container text-center">
+          <small>Copyright &copy; scarylog.com</small>
+        </div>
+    </footer>
+
     {% block extrajs %}
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     {% endblock extrajs %}
+    <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5d1fb870e6c4ff001250887b&product='inline-share-buttons' async='async'></script>
   </body>
 </html>

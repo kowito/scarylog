@@ -34,7 +34,6 @@ class StoryCreateView(CreateView):
         return redirect(obj.get_absolute_url())
 
 
-@method_decorator(login_required, name='dispatch')
 class StoryDetailView(DetailView):
     model = Story
 

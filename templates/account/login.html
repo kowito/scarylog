@@ -6,14 +6,35 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 {% block extrastyle %}
   <style type="text/css">
-    li { list-style: none; }
-    a.socialaccount_provider.facebook{
+    .socialaccount_providers{
+      list-style: none;
+      padding: 0;
+      margin: 3rem;
+    }
+    .socialaccount_providers li{
+      display: inline;
+      margin: 0 1rem;
+      width: 100%;
+      
+    }
+    a.socialaccount_provider{
       color: white;
-      background-color: #3B5998;
+      
       border-radius: 3px;
       padding: 1rem 2rem;
-      width: 10rem;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+
     }
+    a.socialaccount_provider.facebook{
+      background-color: #3B5998;
+    }
+    a.socialaccount_provider.google{
+      background-color: #db3236;
+    }
+
     label{ width: 150px; }
 
   </style>
@@ -27,13 +48,12 @@
       {% get_providers as socialaccount_providers %}
 
       {% if socialaccount_providers %}
-      <p>{% blocktrans with site.name as site_name %}Please sign in with one
+      <div>{% blocktrans with site.name as site_name %}Please sign in with one
       of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-      for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+      for a {{ site_name }} account and sign in below:{% endblocktrans %}</div>
 
       <div class="socialaccount_ballot">
-
-        <ul class="socialaccount_providers">
+        <ul class="socialaccount_providers d-flex justify-content-center">
           {% include "socialaccount/snippets/provider_list.html" with process="login" %}
         </ul>
       </div>

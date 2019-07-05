@@ -1,20 +1,45 @@
 {% extends "base.html" %}
 {% load static i18n %}
 {% block content %}
+
+
+{% block extrastyle %}
+<style type="text/css">
+  .card{
+    margin-top: 3rem;
+  }
+</style>
+    {% endblock extrastyle %}
+
 <div class="container">
   <div class="row">
+    <div class="card-deck">
     {% for object in object_list %}
-    <div class="col-md-3 col-sm-12">
-      <div class="card story-card">
+    
+
+      <div class="card">
+        <img class="card-img-top" src="{% static 'card.jpg' %}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title"><a href="{{object.get_absolute_url}}">{{object.name}}</a></h5>
           <p class="card-text">{{ object.description|truncatechars_html:100|safe }}</p>
-          {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
-          <p class="card-text created">{{ object.updated_at|timesince }}</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">{{ object.updated_at|timesince }}</small>
         </div>
       </div>
-    </div>
+
+
+      {% if forloop.counter|divisibleby:3 %}
+      </div>
+      <div class="card-deck">
+      {% endif %}
+
+
+
+
+    
     {% endfor %}
+    </div>
   </div>
 </div>
 {% endblock %}
