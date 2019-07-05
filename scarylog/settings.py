@@ -85,6 +85,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.media',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -164,8 +165,9 @@ rollbar.init(**ROLLBAR)
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets/'),
-
 ]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/uploads/'
 
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
@@ -221,3 +223,7 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'story',
     },
 }
+
+# Absolute path to static
+ABSOLUTE_STATIC_URL = os.getenv('ABSOLUTE_STATIC_URL', 'http://127.0.0.1:8000/assets')
+ABSOLUTE_WEBSITE_URL = os.getenv('ABSOLUTE_WEBSITE_URL', 'http://127.0.0.1:8000')

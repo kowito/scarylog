@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from allauth.account.signals import user_signed_up
 from django.db.models.signals import post_save
+import hashlib, urllib
 
 GENDER_CHOICES = (
     ('M', 'Male'),
@@ -15,7 +16,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
     photo = StdImageField(null=True,
                             blank=True,
-                            upload_to='images/profilepic',
+                            upload_to='profile',
                             variations={
                                 'retina': (960, 960, True),
                                 'normal': (240, 240, True),
@@ -33,6 +34,10 @@ class UserProfile(models.Model):
 
     def __unicode__(self):
         return "{}'s profile".format(self.user.username)
+
+    def get_picture_thumbnail(self):
+        default = f"{settings.STATIC_URL}default-profile-photo.png"
+        return self.photo.thumbnail if self.photo else default
 
 
 User.profile = property(
