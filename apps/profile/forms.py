@@ -12,4 +12,10 @@ class UserForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['photo', 'website', 'bio', 'phone', 'city', 'country']
+        fields = ['website', 'bio', 'phone', 'city', 'country']
+
+
+class ProfilePictureForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('photo', )

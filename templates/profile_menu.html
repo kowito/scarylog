@@ -1,0 +1,18 @@
+{% load static i18n %}
+
+{% if user.is_authenticated %}
+<ul class="nav nav-tabs mt-5">
+    <li class="nav-item dropdown ml-auto">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          {{request.user}}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a href="/profile/update" class="dropdown-item">{% trans "Update Profile" %}</a>
+            <div class="dropdown-divider"></div>
+            <a href="/accounts/logout/"class="dropdown-item">{% trans "Logout" %}</a>
+        </div>
+    </li>
+</ul>
+{% else %}
+
+{% endif %}

@@ -2,28 +2,45 @@
 {% load static i18n account %}
 
 {% block content %}
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+          crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+          integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+          crossorigin="anonymous"></script>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="flow-text">Update your information</h2>
-                <form action="." method="POST" class="padding">
-                    {% csrf_token %}
-                    {{ user_form.as_p }}
-                    {{ profile_form.as_p }}
-                    <button type="submit" class="btn-floating btn-large waves-light waves-effect">Submit</button>
+  <div class="container">
+      <div class="row">
+          <div class="col">
+              <h2 class="flow-text">{% trans "Update your information" %}</h2>
+
+              <div class="profile_image" name="profile_image">
+                <div class="img avatar">
+                {% if user.profile.picture %}
+                  <img class="img-responsive rounded-circle middle"  src="{% get_media_prefix %}{{ user.profile.picture.thumbnail}}"/>
+                {% else %}
+                  <img src="{% static "avatar.jpg" %}" class="img-responsive rounded-circle middle" alt="{{ object.author }}">
+                {% endif %}
+                </div>
+                <form id="pictureform" method="POST" action={% url 'profile_picture_url' %} enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <input class="" style="color: transparent;" id="id_picture" name="picture" type="file" >
+                  <button type="submit" class="btn btn-info">
+                    {% trans "Save Profile Photo" %}
+                  </button>
                 </form>
-            </div>
-        </div>
-    </div>
+              </div>
 
+              <form action="." method="POST" class="padding">
+                  {% csrf_token %}
+                  {{ user_form.as_p }}
+                  {{ profile_form.as_p }}
+                  <button type="submit" class="btn btn-primary">
+                    {% trans "Submit" %}
+                  </button>
+              </form>
+          </div>
+      </div>
+  </div>
+  {{user.get_profile_pic}}
 {% endblock %}

@@ -34,11 +34,11 @@
             background-color: #343a40;
         }
         .navbar-brand{
-            color: red !important; 
+            color: red !important;
             font-family: 'Nosifer', cursive;"
         }
         h1{
-            color: red; 
+            color: red;
             font-family: 'Butcherman', cursive;
             padding-top: 1rem;
         }
@@ -68,6 +68,9 @@
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li><a class="btn btn-outline-danger" href="{% url 'story_story_create' %}">{% trans "Tell your story" %}</a></li>
         </ul>
+      </div>
+      <div class="profile-menu navbar-section menu-list">
+        {% include 'profile_menu.html' %}
       </div>
     </nav>
     {% block account.content %}
