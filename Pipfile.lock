@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f95a21d6bf0ac344849cd981a91a95a1e29d436dfcc4693d64438e6ee8771a05"
+            "sha256": "41e87842324a81db0ea16bca0f9cb08fb5dd9c13ff48fc3d8b76557cffea841f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -67,6 +67,13 @@
             "index": "pypi",
             "version": "==0.39.1"
         },
+        "django-appconf": {
+            "hashes": [
+                "sha256:35f13ca4d567f132b960e2cd4c832c2d03cb6543452d34e29b7ba10371ba80e3",
+                "sha256:c98a7af40062e996b921f5962a1c4f3f0c979fa7885f7be4710cceb90ebe13a6"
+            ],
+            "version": "==1.0.3"
+        },
         "django-ckeditor": {
             "hashes": [
                 "sha256:0147f8905dc64747e45157a185feedee4e39973fa4b571c9c82ad10d9d4b8974",
@@ -93,10 +100,10 @@
         },
         "django-froala-editor": {
             "hashes": [
-                "sha256:7eafc2a3cd259ffc19556ce55963bc4c6be82d2cea53369a3a03b7ed0b88b686"
+                "sha256:811cec548b7e0ff1f27df1999b98986aa2b0a6b1bed9c250f71c55f55ac58fde"
             ],
             "index": "pypi",
-            "version": "==3.0.1"
+            "version": "==3.0.2"
         },
         "django-jet": {
             "hashes": [
@@ -126,6 +133,14 @@
             ],
             "index": "pypi",
             "version": "==0.1.0"
+        },
+        "django-select2": {
+            "hashes": [
+                "sha256:107c7b708dff2408b8dcc786e0962fa29838783e6e0428f46aee0f6af7b87e6a",
+                "sha256:ef0a07955c54854a8207b66e62b8b42e9f401dd9b353aa11df72b1e66b7838e5"
+            ],
+            "index": "pypi",
+            "version": "==7.0.5"
         },
         "django-stdimage": {
             "hashes": [

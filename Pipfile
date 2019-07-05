@@ -22,6 +22,7 @@ rollbar = "*"
 django-ckeditor = "*"
 django-froala-editor= "*"
 django-stdimage = "*"
+django_select2 = "*"
 
 [requires]
 python_version = "3.7"

@@ -51,8 +51,10 @@
         .created{
             font-size: 0.8rem;
         }
-
-
+        #nav-profile-photo{
+            height: auto;
+            max-width: 40px;
+        }
     </style>
     {% block extrastyle %}
     {% endblock extrastyle %}
@@ -68,9 +70,9 @@
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li><a class="btn btn-outline-danger" href="{% url 'story_story_create' %}">{% trans "Tell your story" %}</a></li>
         </ul>
-      </div>
-      <div class="profile-menu navbar-section menu-list">
-        {% include 'profile_menu.html' %}
+        <div class="navbar-profile">
+            {% include 'profile_menu.html' %}
+        </div>
       </div>
     </nav>
     {% block account.content %}

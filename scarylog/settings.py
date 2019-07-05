@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'ckeditor',
     'stdimage',
+    'django_select2',
     'story',
     'apps.profile',
 
