@@ -1,7 +1,28 @@
 {% extends "base.html" %}
 {% load static i18n %}
-
 {% block extrastyle %}
+
+
+
+<meta property="og:url" content="{{object.get_absolute_url}}" />
+<meta property="og:title" content="ScaryLog: {{ object.name }}" />
+<meta name="description" content="{{ object.description|striptags|truncatechars:100 }}">
+<meta property="og:type" content="article" />
+<meta property="article:author" content="{{ object.author }}" />
+<meta property="og:site_name" content="https://scarylog.me" />
+<meta property="og:image" content="{{ STATIC_URL }}{% static "card.jpg" %}" />
+<meta property="fb:app_id" content="864575323935503" />
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@hellocookly">
+<meta name="twitter:creator" content="@hellocookly">
+<meta name="twitter:title" content="{{ object.name }}">
+<meta name="twitter:description" content="{{ object.description|striptags|truncatechars:100 }}">
+<meta name="twitter:image" content="{{ STATIC_URL }}{% static "card.jpg" %}">
+<meta name="twitter:image:alt" content="{{ object.name }}">
+
+
+
+
 <style type="text/css">
     .jumbotron{
         background-image: 
