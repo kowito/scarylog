@@ -35,8 +35,10 @@ class UserProfile(models.Model):
         return "{}'s profile".format(self.user.username)
 
     def get_picture_thumbnail(self):
-        default = f"{settings.STATIC_URL}avatar.jpg"
-        return f"{settings.MEDIA_URL}{self.photo.thumbnail}" if self.photo else default
+        if self.photo
+            return f"{settings.MEDIA_URL}{self.photo.thumbnail}"
+        else:
+            return None
 
 
 User.profile = property(
