@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% load static i18n %}
 {% block extrastyle %}
-
-
-
 <meta property="og:url" content="{{object.get_absolute_url}}" />
 <meta property="og:title" content="ScaryLog: {{ object.name }}" />
 <meta name="description" content="{{ object.description|striptags|truncatechars:100 }}">
@@ -19,10 +16,6 @@
 <meta name="twitter:description" content="{{ object.description|striptags|truncatechars:100 }}">
 <meta name="twitter:image" content="{{ STATIC_URL }}{% static "card.jpg" %}">
 <meta name="twitter:image:alt" content="{{ object.name }}">
-
-
-
-
 <style type="text/css">
     .jumbotron{
         background-image: 
@@ -76,12 +69,10 @@
         <div class="col">
             <p class="card-text">{{ object.description|safe }}</p>
             <p>{{ object.created_at|timesince }}</p>
-            <a class="btn btn-primary" href="{{object.get_update_url}}">{% trans "Edit Story" %}</a>
+            {% if request.user == object.author %}
+                <a class="btn btn-primary" href="{{object.get_update_url}}">{% trans "Edit Story" %}</a>    
+            {% endif %}
         </div>
     </div>    
 </div>
-
-
-
-
 {% endblock %}
