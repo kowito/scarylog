@@ -8,7 +8,7 @@ awsebcli = "*"
 django-debug-toolbar = "*"
 
 [packages]
-django = "*"
+django = "~=2.2"
 psycopg2-binary = "*"
 django-extensions = "*"
 django-location-field = "*"
@@ -20,7 +20,6 @@ django-jet = "*"
 django-allauth = "*"
 rollbar = "*"
 django-ckeditor = "*"
-django-froala-editor= "*"
 django-stdimage = "*"
 django_select2 = "*"
 
