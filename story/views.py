@@ -24,7 +24,6 @@ class StoryCreateView(CreateView):
     model = Story
     form_class = StoryForm
 
-    @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(StoryCreateView, self).dispatch(*args, **kwargs)
 
