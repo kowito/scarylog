@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cd97283b7b333749fb7e1e0e2d6bd9f4679df0da6f2eb4afdfa38630692253e9"
+            "sha256": "1db3c8e4dba0c69a4344fb6dbb9904e17a97dfc61e23a5611e71c302177bf89c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,21 @@
         ]
     },
     "default": {
+        "algoliasearch": {
+            "hashes": [
+                "sha256:48460675555e6effab946adc58b7483bb88a5a68ddc4bdebee09d93e9253318c",
+                "sha256:842fb3e2fb57dc0daa2e97bf0d2e8191498781540901da118e98c24048d8d812"
+            ],
+            "version": "==1.20.0"
+        },
+        "algoliasearch-django": {
+            "hashes": [
+                "sha256:c25b49b7df3d410625f983bbf907b063796d57c6021e1643987900e72d07906d",
+                "sha256:c64dc2dab76ade6b05638a188e4a4af1ec952d5aa407aeab3ce6cbaed082d4c5"
+            ],
+            "index": "pypi",
+            "version": "==1.7.1"
+        },
         "boto3": {
             "hashes": [
                 "sha256:2149b6b617783bac1cf2a3d009949be6356d62a6c1e9f2ac77e6c861ce6548de",
