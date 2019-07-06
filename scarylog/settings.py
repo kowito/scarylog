@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'stdimage',
     'django_select2',
+    'algoliasearch_django',
     'story',
     'apps.profile',
 
