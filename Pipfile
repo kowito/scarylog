@@ -23,6 +23,7 @@ django-ckeditor = "*"
 django-froala-editor= "*"
 django-stdimage = "*"
 django_select2 = "*"
+algoliasearch = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block extrastyle %}
+    <style media="screen">
+        .section-search {
+            z-index: 4;
+            background-color: #fff;
+            -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .section-searchhead {
+            padding: 13px 15px 0 15px;
+        }
+        .box-filter {
+            border-bottom: 1px solid #000;
+            padding-bottom: 10px;
+            font-family: 'db_helvethaica_x';
+            z-index: 7;
+        }
+        .box-searchtopic {
+            float: left;
+            width: 100%;
+            padding-bottom: 20px;
+            position: relative;
+            padding: 15px;
+        }
+        .section-searchbody {
+            padding: 15px;
+            position: relative;
+        }
+        .section-result-stock::-webkit-scrollbar {
+            width: 6px;
+        }
+        .section-result-stock::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.75);
+        }
+        .searchtopic-result span {
+            color: red;
+            font-family: 'db_helvethaica_x_li';
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .lds-dual-ring {
+            display: inline-block;
+            width: 64px;
+            height: 64px;
+        }
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 46px;
+            height: 46px;
+            margin: 1px;
+            border-radius: 50%;
+            border: 5px solid #cd0a0a;
+            border-color: #cd0a0a transparent #cd0a0a transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .card-text{
+            display: block;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            overflow: hidden;
+            max-height: 160px;
+            line-height: 1.8em;
+        }
+    </style>
+{% endblock extrastyle %}
+
+{% block content %}
+    <div class="container-fluid wrap d-none d-lg-block">
+        <div class="row" style="height:100%;overflow-y:hidden">
+            <!-- Map -->
+            <div class="p-0 col-lg-5" id="divMap"></div>
+            <div class="overlay-white"></div>
+            <!-- Search -->
+            <div class="section-search col">
+
+                <!-- Search Head -->
+                <div class="row section-searchhead">
+                    <div class="col box-filter ">
+                        <div class="row">
+                            <div class="col p-0 partfil-keyword">
+                                <div class="fil-keyword">
+                                    <input type="text" lang="en" class="form-control" name="searchkeyword"
+                                           placeholder="Keyword" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search contents -->
+                <div class="box-searchtopic px-0">
+
+                    <!-- Option + Config -->
+                    <div class="row section-searchbody pt-0">
+                        <div class="col">
+                            <div class="row align-items-center">
+                                <div class="col-auto align-self-center searchtopic-result pl-0">
+                                    {% comment %}aa <span>100</span> stories{% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Items List -->
+                    <div class="row align-items-start section-result-stock d-flex justify-content-center"
+                         style="overflow: hidden scroll; height: calc(470px);">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% verbatim handlebar %}
+        <script id="h-item-card" type="text/x-handlebars-template">
+            {{#each stories}}
+            <div class="col-md-4">
+                <div class="card mb-4 text-white bg-dark">
+                    <img class="card-img-top" src="//placeimg.com/290/180/any" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ name }}</h5>
+                        <div class="card-text">{{{ description }}}</div>
+                        <a href="http://www.jquery2dotnet.com/" class="btn btn-outline-light btn-sm">Read detail</a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </script>
+    {% endverbatim handlebar %}
+{% endblock %}
+
+{% block extrajs %}
+    {{ block.super }}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&callback=initMap&libraries=geometry"
+            async
+            defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+    <script type="text/javascript">
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('divMap'), {
+                center: {lat: 13.7563309, lng: 100.644},
+                zoom: 12,
+                styles: [{
+                    "featureType": "all",
+                    "elementType": "labels",
+                    "stylers": [{"visibility": "on"}]
+                }, {
+                    "featureType": "all",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"saturation": 36}, {"color": "#000000"}, {"lightness": 40}]
+                }, {
+                    "featureType": "all",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{"visibility": "on"}, {"color": "#000000"}, {"lightness": 16}]
+                }, {
+                    "featureType": "all",
+                    "elementType": "labels.icon",
+                    "stylers": [{"visibility": "off"}]
+                }, {
+                    "featureType": "administrative",
+                    "elementType": "geometry.fill",
+                    "stylers": [{"color": "#000000"}, {"lightness": 20}]
+                }, {
+                    "featureType": "administrative",
+                    "elementType": "geometry.stroke",
+                    "stylers": [{"color": "#000000"}, {"lightness": 17}, {"weight": 1.2}]
+                }, {
+                    "featureType": "administrative.locality",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"color": "#c4c4c4"}]
+                }, {
+                    "featureType": "administrative.neighborhood",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"color": "#707070"}]
+                }, {
+                    "featureType": "landscape",
+                    "elementType": "geometry",
+                    "stylers": [{"color": "#000000"}, {"lightness": 20}]
+                }, {
+                    "featureType": "poi",
+                    "elementType": "geometry",
+                    "stylers": [{"color": "#000000"}, {"lightness": 21}, {"visibility": "on"}]
+                }, {
+                    "featureType": "poi.business",
+                    "elementType": "geometry",
+                    "stylers": [{"visibility": "on"}]
+                }, {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.fill",
+                    "stylers": [{"color": "#be2026"}, {"lightness": "0"}, {"visibility": "on"}]
+                }, {
+                    "featureType": "road.highway",
+                    "elementType": "geometry.stroke",
+                    "stylers": [{"visibility": "off"}]
+                }, {
+                    "featureType": "road.highway",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"visibility": "off"}]
+                }, {
+                    "featureType": "road.highway",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{"visibility": "off"}, {"hue": "#ff000a"}]
+                }, {
+                    "featureType": "road.arterial",
+                    "elementType": "geometry",
+                    "stylers": [{"color": "#000000"}, {"lightness": 18}]
+                }, {
+                    "featureType": "road.arterial",
+                    "elementType": "geometry.fill",
+                    "stylers": [{"color": "#575757"}]
+                }, {
+                    "featureType": "road.arterial",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"color": "#ffffff"}]
+                }, {
+                    "featureType": "road.arterial",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{"color": "#2c2c2c"}]
+                }, {
+                    "featureType": "road.local",
+                    "elementType": "geometry",
+                    "stylers": [{"color": "#000000"}, {"lightness": 16}]
+                }, {
+                    "featureType": "road.local",
+                    "elementType": "labels.text.fill",
+                    "stylers": [{"color": "#999999"}]
+                }, {
+                    "featureType": "road.local",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [{"saturation": "-52"}]
+                }, {
+                    "featureType": "transit",
+                    "elementType": "geometry",
+                    "stylers": [{"color": "#000000"}, {"lightness": 19}]
+                }, {
+                    "featureType": "water",
+                    "elementType": "geometry",
+                    "stylers": [{"color": "#000000"}, {"lightness": 17}]
+                }],
+
+            });
+
+            var ajaxRequest;
+
+            function processSearch() {
+                // cancel last request if have
+                if (ajaxRequest) ajaxRequest.abort();
+                $('.section-search').addClass('loading');
+                $('.section-result-stock').html('<div class="lds-dual-ring"></div>');
+            }
+
+            function finishSearch() {
+                $('.section-search').removeClass('loading');
+            }
+
+            function getStoriesArround(lat, lng, radius) {
+                ajaxRequest = $.ajax({
+                    url: '/story/ajax-get-stories/',
+                    data: {lat, lng, radius},
+                    dataType: 'json',
+                    success: function (data) {
+                        finishSearch();
+                        var source = document.getElementById("h-item-card").innerHTML;
+                        var template = Handlebars.compile(source);
+                        var html = template({stories: data.hits});
+                        $('.section-result-stock').html(html);
+                    }
+                });
+            }
+
+            google.maps.event.addListener(map, "dragend", function () {
+                var center = map.getCenter();
+                // Calculate radius of current view (in meters).
+                var radius = google.maps.geometry.spherical.computeDistanceBetween(center, map.getBounds().getSouthWest());
+                radius = Math.floor(radius);
+                processSearch();
+                getStoriesArround(center.lat(), center.lng(), radius);
+            });
+        }
+
+    </script>
+{% endblock %}

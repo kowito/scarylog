@@ -230,3 +230,7 @@ CKEDITOR_CONFIGS = {
 # Absolute path to static
 ABSOLUTE_STATIC_URL = os.getenv('ABSOLUTE_STATIC_URL', 'http://127.0.0.1:8000/assets')
 ABSOLUTE_WEBSITE_URL = os.getenv('ABSOLUTE_WEBSITE_URL', 'http://127.0.0.1:8000')
+
+# Algolia
+ALGOLIA_APP_ID = os.getenv('ALGOLIA_APP_ID')
+ALGOLIA_ADMIN_API_KEY = os.getenv('ALGOLIA_ADMIN_API_KEY')
