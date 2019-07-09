@@ -2,6 +2,11 @@
 {% load static i18n crispy_forms_tags %}
 
 {% block content %}
+<script type="text/javascript">
+    if( !$("id_coordinate").val() ) {
+        $("#id_coordinate").val("13.6741719,100.6083957");
+    }
+</script>
 <div class="container story">
     <div class="row">
         <div class="col">
@@ -17,14 +22,6 @@
 {% endblock %}
 {% block extrajs %}
     {{ block.super }}
-    <script type="text/javascript">
-        if( !$("id_coordinate").val() ) {
-            $("#id_coordinate").val("13.6741719,100.6083957");
-        }
-        $(function() {
-            
-        });
-    </script>
     {{form.media}}
     
 
