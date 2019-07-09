@@ -42,10 +42,11 @@ class Story(models.Model):
         return u'%s' % self.name
 
     def save(self, *args, **kwargs):
-        self.short_desc = strip_tags(self.description)[250:]
-        self.geocoding = requests.get(
-            'https://maps.googleapis.com/maps/api/geocode/json?latlng={self.coordinate}&{GOOGLE_API_KEY}')
-        super(Model, self).save(*args, **kwargs)
+        self.short_desc = strip_tags(self.description)[:1000]
+        if not self.geocoding:
+            endpoint = f'https://maps.googleapis.com/maps/api/geocode/json?latlng={self.coordinate}&key={GOOGLE_API_KEY}'
+            self.geocoding = requests.get(endpoint).json()
+        super(Story, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('story_story_detail', args=(self.slug,))
