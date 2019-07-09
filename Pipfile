@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 awsebcli = "*"
 django-debug-toolbar = "*"
+ipython = "*"
 
 [packages]
 django = "~=2.2"
@@ -22,6 +23,7 @@ rollbar = "*"
 django-ckeditor = "*"
 django-stdimage = "*"
 django_select2 = "*"
+algoliasearch-django = "*"
 
 [requires]
 python_version = "3.7"

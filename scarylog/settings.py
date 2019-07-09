@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'stdimage',
     'django_select2',
+    'algoliasearch_django',
     'story',
     'apps.profile',
 
@@ -214,6 +215,12 @@ LOCATION_FIELD = {
         ),
     },
 }
+
+ALGOLIA = {
+    'APPLICATION_ID': os.getenv('ALGOLIA_APPLICATION_ID'),
+    'API_KEY': os.getenv('ALGOLIA_API_KEY')
+}
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CKEDITOR_CONFIGS = {
