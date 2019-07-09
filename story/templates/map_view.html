@@ -72,8 +72,11 @@
             text-overflow: ellipsis;
             word-wrap: break-word;
             overflow: hidden;
-            max-height: 160px;
+            height: 160px;
             line-height: 1.8em;
+        }
+        .card-text p{
+            color: #fff;
         }
     </style>
 {% endblock extrastyle %}
@@ -151,7 +154,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
     <script type="text/javascript">
         function initMap() {
-            map = new google.maps.Map(document.getElementById('divMap'), {
+            // Global vars
+            var map = new google.maps.Map(document.getElementById('divMap'), {
                 center: {lat: 13.7563309, lng: 100.644},
                 zoom: 12,
                 styles: [{
@@ -253,31 +257,46 @@
                 }],
 
             });
-
             var ajaxRequest;
-
+            var markers = [];
+            window.map = map;
             function processSearch() {
                 // cancel last request if have
                 if (ajaxRequest) ajaxRequest.abort();
                 $('.section-search').addClass('loading');
                 $('.section-result-stock').html('<div class="lds-dual-ring"></div>');
             }
-
             function finishSearch() {
                 $('.section-search').removeClass('loading');
             }
-
+            function refreshMarkers(newMarkers) {
+                markers.map(marker=>marker.setMap(null));
+                newMarkers.map(marker=>marker.setMap(map));
+                markers = newMarkers;
+            }
             function getStoriesArround(lat, lng, radius) {
                 ajaxRequest = $.ajax({
                     url: '/story/ajax-get-stories/',
                     data: {lat, lng, radius},
                     dataType: 'json',
                     success: function (data) {
+                        // Init effect
                         finishSearch();
+                        // Update html
                         var source = document.getElementById("h-item-card").innerHTML;
                         var template = Handlebars.compile(source);
                         var html = template({stories: data.hits});
                         $('.section-result-stock').html(html);
+                        // Update markers
+                        var newMarkers = [];
+                        data.hits.map(function (story) {
+                            var marker = new google.maps.Marker({
+                              position: {lat: story._geoloc.lat, lng: story._geoloc.lng},
+                              title: story.name
+                            });
+                            newMarkers.push(marker);
+                        });
+                        refreshMarkers(newMarkers);
                     }
                 });
             }
