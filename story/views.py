@@ -57,8 +57,9 @@ def ajax_get_stories(request):
     lng1 = request.GET.get('lng1', None)
     lat2 = request.GET.get('lat2', None)
     lng2 = request.GET.get('lng2', None)
+    query = request.GET.get('query', '')
 
     params = {'insideBoundingBox': f'{lat1},{lng1},{lat2},{lng2}'}
-    response = raw_search(Story, "", params)
+    response = raw_search(Story, query, params)
 
     return JsonResponse(response)

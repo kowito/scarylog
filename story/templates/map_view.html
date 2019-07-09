@@ -10,18 +10,15 @@
             box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
-
         .section-searchhead {
             padding: 13px 15px 0 15px;
         }
-
         .box-filter {
             border-bottom: 1px solid #000;
             padding-bottom: 10px;
             font-family: 'db_helvethaica_x';
             z-index: 7;
         }
-
         .box-searchtopic {
             float: left;
             width: 100%;
@@ -29,34 +26,32 @@
             position: relative;
             padding: 15px;
         }
-
         .section-searchbody {
             padding: 15px;
             position: relative;
         }
-
+        .section-result-stock {
+            overflow: hidden scroll;
+            height: calc(470px);
+        }
         .section-result-stock::-webkit-scrollbar {
             width: 6px;
         }
-
         .section-result-stock::-webkit-scrollbar-thumb {
             border-radius: 10px;
             background-color: rgba(0, 0, 0, 0.75);
         }
-
         .searchtopic-result span {
             color: red;
             font-family: 'db_helvethaica_x_li';
             font-size: 30px;
             font-weight: bold;
         }
-
         .lds-dual-ring {
             display: inline-block;
             width: 64px;
             height: 64px;
         }
-
         .lds-dual-ring:after {
             content: " ";
             display: block;
@@ -68,7 +63,6 @@
             border-color: #cd0a0a transparent #cd0a0a transparent;
             animation: lds-dual-ring 1.2s linear infinite;
         }
-
         @keyframes lds-dual-ring {
             0% {
                 transform: rotate(0deg);
@@ -77,18 +71,13 @@
                 transform: rotate(360deg);
             }
         }
-
-        .card-text {
-            display: block;
-            text-overflow: ellipsis;
-            word-wrap: break-word;
-            overflow: hidden;
-            height: 160px;
-            line-height: 1.8em;
+        .card {
+            cursor: zoom-in;
         }
-
-        .card-text p {
-            color: #fff;
+        .card-text em,
+        .card-title em {
+            background-color: yellow;
+            color: black;
         }
     </style>
 {% endblock extrastyle %}
@@ -108,8 +97,7 @@
                         <div class="row">
                             <div class="col p-0 partfil-keyword">
                                 <div class="fil-keyword">
-                                    <input type="text" lang="en" class="form-control" name="searchkeyword"
-                                           placeholder="Keyword" value="">
+                                    <input type="text" lang="en" class="form-control" name="searchkeyword" placeholder="Keyword" value="">
                                 </div>
                             </div>
                         </div>
@@ -131,8 +119,7 @@
                     </div>
 
                     <!-- Items List -->
-                    <div class="row align-items-start section-result-stock d-flex justify-content-center"
-                         style="overflow: hidden scroll; height: calc(470px);">
+                    <div class="row align-items-start section-result-stock d-flex justify-content-center">
                     </div>
                 </div>
 
@@ -142,18 +129,33 @@
 
     {% verbatim handlebar %}
         <script id="h-item-card" type="text/x-handlebars-template">
-            {{#each stories}}
-            <div class="col-md-4">
-                <div class="card mb-4 text-white bg-dark">
-                    <img class="card-img-top" src="//placeimg.com/290/180/any" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ name }}</h5>
-                        <div class="card-text">{{{ description }}}</div>
-                        <a href="http://www.jquery2dotnet.com/" class="btn btn-outline-light btn-sm">Read detail</a>
+            <div class="row">
+                {{#each stories}}
+                <div class="col-sm-6">
+                    <div class="card h-100 text-white bg-dark card-story" data-story="{{ objectID }}">
+                        <img class="card-img-top" src="{% endverbatim handlebar %}{% static "bg.jpg" %}{% verbatim handlebar %}" alt="{{ name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{{name}}}</h5>
+                            <p class="card-text">
+                                {{{description}}}
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <small class="text-muted">Last updated 3 mins ago</small>
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <a href="{{ url }}" class="btn btn-indigo btn-rounded btn-md" target="_blank">
+                                {% endverbatim handlebar %}{% trans "Read detail" %}{% verbatim handlebar %}
+                            </a>
+                        </div>
                     </div>
                 </div>
+                {{else}}
+                    {% endverbatim handlebar %}{% trans "No results found" %}{% verbatim handlebar %}
+                {{/each}}
             </div>
-            {{/each}}
         </script>
     {% endverbatim handlebar %}
 {% endblock %}
@@ -278,16 +280,46 @@
                 if (ajaxRequest) ajaxRequest.abort();
                 $('.section-search').addClass('loading');
                 $('.section-result-stock').html('<div class="lds-dual-ring"></div>');
+                $('input[name="searchkeyword"]').attr('readonly', true);
             }
 
             function finishSearch() {
                 $('.section-search').removeClass('loading');
+                $('input[name="searchkeyword"]').attr('readonly', false);
+            }
+
+            function focusStory(marker) {
+                // Map view point
+                map.panTo(marker.getPosition());
+                //var zoomLevel =  map.getZoom();
+                map.setZoom(14);
+
+                // Close all other infowindow
+                markers.forEach(m => m.infowindow.close());
+                marker.infowindow.open(map, marker);
+
+                // Search result update
+                var scrollTop = $(`.card-story[data-story="${marker.objectID}"]`).offset().top;
+                $(".section-result-stock").animate({scrollTop}, 400);
             }
 
             function refreshMarkers(newMarkers) {
                 markers.map(marker => marker.setMap(null));
                 newMarkers.map(marker => marker.setMap(map));
                 markers = newMarkers;
+
+                // Bind click event
+                $('.card-story').click(function (e) {
+                    var objectID = $(this).data('story');
+                    var marker = markers.find(m=>m.objectID==objectID);
+                    focusStory(marker);
+                });
+
+                markers.map(marker => {
+                    marker.addListener('click', function() {
+                        focusStory(marker);
+                    });
+                });
             }
 
             var groupBy = function(xs, key) {
@@ -297,51 +329,67 @@
               }, {});
             };
 
-            function getStoriesArround(lat1, lng1, lat2, lng2) {
+            function getStoriesArround(query = '') {
+                var lat1 = map.getBounds().getNorthEast().lat();
+                var lng1 = map.getBounds().getNorthEast().lng();
+                var lat2 = map.getBounds().getSouthWest().lat();
+                var lng2 = map.getBounds().getSouthWest().lng();
+
                 ajaxRequest = $.ajax({
                     url: '/story/ajax-get-stories/',
-                    data: {lat1, lng1, lat2, lng2},
+                    data: {lat1, lng1, lat2, lng2, query},
                     dataType: 'json',
                     success: function (data) {
                         // Init effect
                         finishSearch();
+
+                        // Update markers
+                        var newMarkers = [];
+                        // Group locations base on place_id
+                        var groupStories = groupBy(data.hits, 'google_place_id');
+                        data.hits.forEach(function (story) {
+                            // Group stories
+                            var marker = new google.maps.Marker({
+                                position: {
+                                    lat: parseFloat(story._geoloc.lat),
+                                    lng: parseFloat(story._geoloc.lng)
+                                }
+                            });
+                            story.url = "{% url 'story_story_detail' slug='0' %}".replace(/0/, story.slug);
+                            story.name = story._highlightResult.name.value;
+                            story.description = story._highlightResult.description.value;
+
+                            marker.objectID = story.objectID;
+                            marker.infowindow = new google.maps.InfoWindow({
+                              content: `${story.name}`
+                            });
+
+                            newMarkers.push(marker);
+                        });
+
                         // Update html
                         var source = document.getElementById("h-item-card").innerHTML;
                         var template = Handlebars.compile(source);
                         var html = template({stories: data.hits});
                         $('.section-result-stock').html(html);
-                        // Update markers
-                        var newMarkers = [];
-                        var groupStories = groupBy(data.hits, 'google_place_id');
-                        {#data.hits.map(function (story) {#}
-                        {#    // Group stories#}
-                        {#    var marker = new google.maps.Marker({#}
-                        {#        position: {#}
-                        {#            lat: parseFloat(story._geoloc.lat),#}
-                        {#            lng: parseFloat(story._geoloc.lng)#}
-                        {#        },#}
-                        {#        title: story.name#}
-                        {#    });#}
-                        {#    newMarkers.push(marker);#}
-                        // });
-                        {#refreshMarkers(newMarkers);#}
+                        refreshMarkers(newMarkers);
                     }
                 });
             }
 
-            google.maps.event.addListener(map, "dragend", function () {
-                var center = map.getCenter();
-                // Calculate radius of current view (in meters).
-                // var radius = google.maps.geometry.spherical.computeDistanceBetween(center, map.getBounds().getSouthWest());
-                // radius = Math.floor(radius);
-
+            google.maps.event.addListener(map, 'dragend', function () {
                 processSearch();
-                getStoriesArround(
-                    map.getBounds().getNorthEast().lat(),
-                    map.getBounds().getNorthEast().lng(),
-                    map.getBounds().getSouthWest().lat(),
-                    map.getBounds().getSouthWest().lng(),
-                );
+                getStoriesArround();
+            });
+            google.maps.event.addListenerOnce(map, 'idle', function () {
+                getStoriesArround();
+            });
+
+            $('input[name="searchkeyword"]').on("keyup",function search(e) {
+                if(e.keyCode === 13) {
+                    // Refresh result from map
+                    getStoriesArround($(this).val());
+                }
             });
         }
 
