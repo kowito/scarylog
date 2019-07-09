@@ -136,7 +136,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
-
+LOGIN_REDIRECT_URL = 'profile/update/'
 AUTH_PROFILE_MODULE = 'apps.profile.UserProfile'
 
 DEFAULT_HTTP_PROTOCOL = "https"

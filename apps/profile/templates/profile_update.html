@@ -23,7 +23,7 @@
                 <div class="profile_image d-flex justify-content-center" name="profile_image">
                     <div class="avatar">
                         <img id="profile_photo_preview" class="img-responsive rounded-circle middle"
-                             src="{{ user.profile.get_picture_thumbnail }}"/>
+                             src="{{ STATIC_URL }}{{ user.profile.get_picture_thumbnail|default:'avatar.jpg'}}"/>
                     </div>
                 </div>
                 <div class="clearfix d-flex justify-content-center">

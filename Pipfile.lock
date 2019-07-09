@@ -106,13 +106,6 @@
             "index": "pypi",
             "version": "==2.1.9"
         },
-        "django-froala-editor": {
-            "hashes": [
-                "sha256:811cec548b7e0ff1f27df1999b98986aa2b0a6b1bed9c250f71c55f55ac58fde"
-            ],
-            "index": "pypi",
-            "version": "==3.0.2"
-        },
         "django-jet": {
             "hashes": [
                 "sha256:f521dc0873023afa198d2b57687e0593ee62022bd50fa59506dfce69b101cd9e"
