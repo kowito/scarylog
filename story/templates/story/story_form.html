@@ -16,15 +16,17 @@
 </div>
 {% endblock %}
 {% block extrajs %}
-{{ block.super }}
-{{form.media}}
-<script type="text/javascript">
-    $(function() {
+    {{ block.super }}
+    <script type="text/javascript">
         if( !$("id_coordinate").val() ) {
-              $("#id_coordinate").val("13.6741719,100.6083957");
+            $("#id_coordinate").val("13.6741719,100.6083957");
         }
-    });
-</script>
+        $(function() {
+            
+        });
+    </script>
+    {{form.media}}
+    
 
 
 {% endblock extrajs %}
