@@ -10,15 +10,18 @@
             box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
+
         .section-searchhead {
             padding: 13px 15px 0 15px;
         }
+
         .box-filter {
             border-bottom: 1px solid #000;
             padding-bottom: 10px;
             font-family: 'db_helvethaica_x';
             z-index: 7;
         }
+
         .box-searchtopic {
             float: left;
             width: 100%;
@@ -26,28 +29,34 @@
             position: relative;
             padding: 15px;
         }
+
         .section-searchbody {
             padding: 15px;
             position: relative;
         }
+
         .section-result-stock::-webkit-scrollbar {
             width: 6px;
         }
+
         .section-result-stock::-webkit-scrollbar-thumb {
             border-radius: 10px;
             background-color: rgba(0, 0, 0, 0.75);
         }
+
         .searchtopic-result span {
             color: red;
             font-family: 'db_helvethaica_x_li';
             font-size: 30px;
             font-weight: bold;
         }
+
         .lds-dual-ring {
             display: inline-block;
             width: 64px;
             height: 64px;
         }
+
         .lds-dual-ring:after {
             content: " ";
             display: block;
@@ -59,6 +68,7 @@
             border-color: #cd0a0a transparent #cd0a0a transparent;
             animation: lds-dual-ring 1.2s linear infinite;
         }
+
         @keyframes lds-dual-ring {
             0% {
                 transform: rotate(0deg);
@@ -67,7 +77,8 @@
                 transform: rotate(360deg);
             }
         }
-        .card-text{
+
+        .card-text {
             display: block;
             text-overflow: ellipsis;
             word-wrap: break-word;
@@ -75,7 +86,8 @@
             height: 160px;
             line-height: 1.8em;
         }
-        .card-text p{
+
+        .card-text p {
             color: #fff;
         }
     </style>
@@ -260,24 +272,35 @@
             var ajaxRequest;
             var markers = [];
             window.map = map;
+
             function processSearch() {
                 // cancel last request if have
                 if (ajaxRequest) ajaxRequest.abort();
                 $('.section-search').addClass('loading');
                 $('.section-result-stock').html('<div class="lds-dual-ring"></div>');
             }
+
             function finishSearch() {
                 $('.section-search').removeClass('loading');
             }
+
             function refreshMarkers(newMarkers) {
-                markers.map(marker=>marker.setMap(null));
-                newMarkers.map(marker=>marker.setMap(map));
+                markers.map(marker => marker.setMap(null));
+                newMarkers.map(marker => marker.setMap(map));
                 markers = newMarkers;
             }
-            function getStoriesArround(lat, lng, radius) {
+
+            var groupBy = function(xs, key) {
+              return xs.reduce(function(rv, x) {
+                (rv[x[key]] = rv[x[key]] || []).push(x);
+                return rv;
+              }, {});
+            };
+
+            function getStoriesArround(lat1, lng1, lat2, lng2) {
                 ajaxRequest = $.ajax({
                     url: '/story/ajax-get-stories/',
-                    data: {lat, lng, radius},
+                    data: {lat1, lng1, lat2, lng2},
                     dataType: 'json',
                     success: function (data) {
                         // Init effect
@@ -289,14 +312,19 @@
                         $('.section-result-stock').html(html);
                         // Update markers
                         var newMarkers = [];
-                        data.hits.map(function (story) {
-                            var marker = new google.maps.Marker({
-                              position: {lat: story._geoloc.lat, lng: story._geoloc.lng},
-                              title: story.name
-                            });
-                            newMarkers.push(marker);
-                        });
-                        refreshMarkers(newMarkers);
+                        var groupStories = groupBy(data.hits, 'google_place_id');
+                        {#data.hits.map(function (story) {#}
+                        {#    // Group stories#}
+                        {#    var marker = new google.maps.Marker({#}
+                        {#        position: {#}
+                        {#            lat: parseFloat(story._geoloc.lat),#}
+                        {#            lng: parseFloat(story._geoloc.lng)#}
+                        {#        },#}
+                        {#        title: story.name#}
+                        {#    });#}
+                        {#    newMarkers.push(marker);#}
+                        // });
+                        {#refreshMarkers(newMarkers);#}
                     }
                 });
             }
@@ -304,10 +332,16 @@
             google.maps.event.addListener(map, "dragend", function () {
                 var center = map.getCenter();
                 // Calculate radius of current view (in meters).
-                var radius = google.maps.geometry.spherical.computeDistanceBetween(center, map.getBounds().getSouthWest());
-                radius = Math.floor(radius);
+                // var radius = google.maps.geometry.spherical.computeDistanceBetween(center, map.getBounds().getSouthWest());
+                // radius = Math.floor(radius);
+
                 processSearch();
-                getStoriesArround(center.lat(), center.lng(), radius);
+                getStoriesArround(
+                    map.getBounds().getNorthEast().lat(),
+                    map.getBounds().getNorthEast().lng(),
+                    map.getBounds().getSouthWest().lat(),
+                    map.getBounds().getSouthWest().lng(),
+                );
             });
         }
 

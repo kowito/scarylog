@@ -3,8 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
-from algoliasearch.search_client import SearchClient
-from django.conf import settings
+from algoliasearch_django import raw_search
 
 from .models import Story
 from .forms import StoryForm
@@ -54,14 +53,12 @@ def map_view(request):
 
 
 def ajax_get_stories(request):
-    lat = request.GET.get('lat', None)
-    lng = request.GET.get('lng', None)
-    radius = request.GET.get('radius', None)
+    lat1 = request.GET.get('lat1', None)
+    lng1 = request.GET.get('lng1', None)
+    lat2 = request.GET.get('lat2', None)
+    lng2 = request.GET.get('lng2', None)
 
-    client = SearchClient.create(settings.ALGOLIA_APP_ID, settings.ALGOLIA_ADMIN_API_KEY)
-    story_index = client.init_index('story_index')
-    data = story_index.search('', {
-        'aroundLatLng': f'{lat},{lng}',
-        'aroundRadius': radius,
-    })
-    return JsonResponse(data)
+    params = {'insideBoundingBox': f'{lat1},{lng1},{lat2},{lng2}'}
+    response = raw_search(Story, "", params)
+
+    return JsonResponse(response)
