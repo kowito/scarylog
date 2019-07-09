@@ -2,6 +2,8 @@ branch-defaults:
   master:
     environment: scarylog-prd-pg-env
     group_suffix: null
+  feature/algolia:
+    environment: scarylog-prd-pg-env
 global:
   application_name: scarylog
   branch: null
