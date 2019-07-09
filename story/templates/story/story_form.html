@@ -15,4 +15,7 @@
     </div>
 </div>
 {% endblock %}
-{% block extrajs %}{% endblock extrajs %}
+{% block extrajs %}
+{{ block.super }}
+{{form.media}}
+{% endblock extrajs %}
