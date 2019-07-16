@@ -9,7 +9,7 @@ from django_extensions.db.fields import AutoSlugField
 from location_field.models.plain import PlainLocationField
 from ckeditor.fields import RichTextField
 import requests
-import json
+import ast
 from scarylog.settings import GOOGLE_API_KEY
 
 
@@ -67,7 +67,6 @@ class Story(models.Model):
         return float(location[0]), float(location[1])
 
     def google_place_id(self):
-        import ast
         geo = ast.literal_eval(self.geocoding)
         if geo:
             results = geo.get('results')
