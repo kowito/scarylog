@@ -24,7 +24,6 @@
         .box-filter {
             border-bottom: 1px solid #000;
             padding-bottom: 10px;
-            font-family: 'db_helvethaica_x';
             z-index: 7;
         }
         .box-searchtopic {
@@ -51,7 +50,6 @@
         }
         .searchtopic-result span {
             color: red;
-            font-family: 'db_helvethaica_x_li';
             font-size: 30px;
             font-weight: bold;
         }
@@ -95,7 +93,7 @@
             <div class="p-0 col-lg-5" id="divMap"></div>
             <div class="overlay-white"></div>
             <!-- Search -->
-            <div class="section-search col">
+            <div class="section-search col" style="overflow-y: scroll;">
 
                 <!-- Search Head -->
                 <div class="row section-searchhead">
@@ -112,7 +110,6 @@
 
                 <!-- Search contents -->
                 <div class="box-searchtopic px-0 h-100">
-
                     <!-- Option + Config -->
                     <div class="row section-searchbody pt-0">
                         <div class="col">
@@ -140,7 +137,7 @@
                 <div class="col-sm-4">
                     <div class="card card-story" data-story="{{ objectID }}">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{{ url }}">{{{name}}}</a></h5>
+                            <h5 class="card-title"><a href="{{ url }}" target="_story">{{{name}}}</a></h5>
                             <p>{{{short_desc}}}</p>
 
 
@@ -343,7 +340,7 @@
                         finishSearch();
 
                         // Update markers
-                        var newMarkers = [];
+                        // var newMarkers = [];
                         // Group locations base on city_name
                         var groupStories = groupBy(data.hits, 'city_name');
                         var formatDate = new Date()
@@ -370,7 +367,7 @@
                               content: `${story.name}`
                             });
 
-                            newMarkers.push(marker);
+                            // newMarkers.push(marker);
                         });
 
                         // Update html
@@ -378,7 +375,7 @@
                         var template = Handlebars.compile(source);
                         var html = template({stories: data.hits});
                         $('.section-result-stock').html(html);
-                        refreshMarkers(newMarkers);
+                        // refreshMarkers(newMarkers);
                     }
                 });
             }
