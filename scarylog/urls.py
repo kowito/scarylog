@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
-from story.views import StoryListView
+from story.views import StoryListView, map_view
+
 from scarylog import settings
 from django.conf.urls.static import static
 
@@ -10,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('pages/', include('django.contrib.flatpages.urls')),
-    path('', StoryListView.as_view(), name='home'),
+    path('', map_view, name='home'),
     path('story/', include('story.urls')),
     path('profile/', include('apps.profile.urls')),
 ]
