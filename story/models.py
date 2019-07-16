@@ -69,4 +69,7 @@ class Story(models.Model):
 
     def algolia_location(self):
         location = self.coordinate.split(",", 2)
-        return float(location[0]), float(location[1])
+        try:
+            return float(location[0]), float(location[1])
+        except:
+            return (13.7489887, 100.5757416)
