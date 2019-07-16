@@ -178,25 +178,7 @@
         </div>
     </div>
 
-    {% verbatim handlebar %}
-    <script id="h-item-card" type="text/x-handlebars-template">
-        <div class="row no-gutters">
-            {{#each stories}}
-                <div class="col-sm-4">
-                    <div class="card card-story" data-story="{{ objectID }}">
-                        <div class="card-body">
-                            <h5 class="card-title"><a href="{{ url }}" target="_story">{{{name}}}</a></h5>
-                            <p>{{{short_desc}}}</p>
-                            <small class="text-muted">Since {{{created_at}}}</small>
-                        </div>
-                    </div>
-                </div>
-            {{else}}
-                {% endverbatim handlebar %}{% trans "No results found" %}{% verbatim handlebar %}
-            {{/each}}
-        </div>
-    </script>
-    {% endverbatim handlebar %}
+    
 
 {% endblock %}
 {% block footer %}{% endblock footer %}
@@ -214,6 +196,14 @@
             var map = new google.maps.Map(document.getElementById('divMap'), {
                 center: {lat: 13.7563309, lng: 100.644},
                 zoom: 12,
+                maxZoom: 14,
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControl: false,
+                zoomControlOptions: {
+                  position: google.maps.ControlPosition.RIGHT_TOP
+                },
+
                 styles: [{
                     "featureType": "all",
                     "elementType": "labels",
@@ -261,7 +251,7 @@
                 }, {
                     "featureType": "road.highway",
                     "elementType": "geometry.fill",
-                    "stylers": [{"color": "#be2026"}, {"lightness": "0"}, {"visibility": "on"}]
+                    "stylers": [{"color": "#be2026"}, {"lightness": "0"}, {"visibility": "off"}]
                 }, {
                     "featureType": "road.highway",
                     "elementType": "geometry.stroke",
@@ -401,16 +391,11 @@
                             story.url = "{% url 'story_story_detail' slug='0' %}".replace(/0/, story.slug);
                             story.name = story._highlightResult.name.value;
                             story.short_desc = story._highlightResult.short_desc.value.substring(0, 100) + "...";
-                            story.created_at = moment.unix(story.created_at).fromNow();
-
-
-                            
-
+                            story.created_at = moment.unix(story.created_at).fromNow();                            
                             marker.objectID = story.objectID;
                             marker.infowindow = new google.maps.InfoWindow({
                               content: `${story.name}`
                             });
-
                             // newMarkers.push(marker);
                         });
 
@@ -441,4 +426,23 @@
         }
 
     </script>
+    {% verbatim handlebar %}
+    <script id="h-item-card" type="text/x-handlebars-template">
+        <div class="row no-gutters">
+            {{#each stories}}
+                <div class="col-sm-4">
+                    <div class="card card-story" data-story="{{ objectID }}">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{{ url }}" target="_story">{{{name}}}</a></h5>
+                            <p>{{{short_desc}}}</p>
+                            <small class="text-muted">Since {{{created_at}}}</small>
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+                {% endverbatim handlebar %}{% trans "No results found" %}{% verbatim handlebar %}
+            {{/each}}
+        </div>
+    </script>
+    {% endverbatim handlebar %}
 {% endblock %}
