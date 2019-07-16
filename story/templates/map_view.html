@@ -194,8 +194,8 @@
             // Global vars
             
             var map = new google.maps.Map(document.getElementById('divMap'), {
-                center: {lat: 13.7563309, lng: 100.644},
-                zoom: 12,
+                center: {lat: 18.7939983, lng: 98.9214578},
+                zoom: 14,
                 maxZoom: 14,
                 mapTypeControl: false,
                 streetViewControl: false,
@@ -304,7 +304,7 @@
 
             });
             
-            infoWindow = new google.maps.InfoWindow;
+            var infoWindow = new google.maps.InfoWindow;
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = {
@@ -325,7 +325,7 @@
             }
 
             function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-                infoWindow.setPosition(pos);
+var                 infoWindow.setPosition(pos);
                 infoWindow.setContent(browserHasGeolocation ?
                                       'Error: The Geolocation service failed.' :
                                       'Error: Your browser doesn\'t support geolocation.');
