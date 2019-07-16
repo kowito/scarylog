@@ -67,11 +67,12 @@ class Story(models.Model):
         return float(location[0]), float(location[1])
 
     def google_place_id(self):
-        results = self.geocoding.get('results')
-        city = next(result for result in results if ('political' in result.get('types') and
-            (
-                    'locality' in result.get('types') or
-                    'administrative_area_level_1' in result.get('types')
-            )
-        ))
-        return city.get('place_id')
+        if self.geocoding:
+            results = self.geocoding.get('results')
+            city = next(result for result in results if ('political' in result.get('types') and
+                                                         (
+                        'locality' in result.get('types') or
+                        'administrative_area_level_1' in result.get('types')
+                        )
+            ))
+            return city.get('place_id')
