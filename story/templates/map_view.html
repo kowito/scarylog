@@ -6,8 +6,39 @@
         html,body {
           height: 100%;
         }
+
+        body{overflow: hidden;}
+
+        .container-fluid, .parent{
+          height: 100%;
+        }
         .card-story{
             margin: 1rem;    
+        }
+        .card-story {
+          transition: transform .5s;
+        }
+        .card-story::after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          transition: opacity 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+          box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+          content: '';
+          opacity: 0;
+          z-index: -1;
+        }
+        .card-story:hover, .card-story:focus {
+          transform: scale3d(1.006, 1.006, 1);
+        }
+        .card-story:hover::after, .card-story:focus::after {
+          opacity: 1;
+        }
+
+        .card-body p{
+            font-size: 0.8rem;
         }
         
         .section-search {
@@ -86,17 +117,31 @@
         a {
             color: red !important;
         }
+        a:hover{
+            text-decoration: none;   
+        }
+
+
+        .section-search{
+          position: relative;
+          float: left;
+          text-align: center;
+          height:100%;
+          overflow-y: auto; 
+        }
+
+
     </style>
 {% endblock extrastyle %}
 
 {% block content %}
     <div class="container-fluid wrap h-100">
-        <div class="row h-100">
+        <div class="row parent h-100">
             <!-- Map -->
             <div class="p-0 col-lg-5" id="divMap"></div>
             <div class="overlay-white"></div>
             <!-- Search -->
-            <div class="section-search col" style="overflow-y: scroll;">
+            <div class="section-search col">
 
                 <!-- Search Head -->
                 <div class="row section-searchhead">
@@ -142,8 +187,6 @@
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{ url }}" target="_story">{{{name}}}</a></h5>
                             <p>{{{short_desc}}}</p>
-
-
                             <small class="text-muted">Since {{{created_at}}}</small>
                         </div>
                     </div>
@@ -358,9 +401,7 @@
                             story.url = "{% url 'story_story_detail' slug='0' %}".replace(/0/, story.slug);
                             story.name = story._highlightResult.name.value;
                             story.short_desc = story._highlightResult.short_desc.value.substring(0, 100) + "...";
-
-                            // story.created_at = formatDate(story.created_at);
-                            story.created_at = moment(story.created_at).startOf('hour').fromNow();
+                            story.created_at = moment.unix(story.created_at).fromNow();
 
 
                             
