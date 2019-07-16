@@ -5,8 +5,7 @@ from .models import Story
 
 @register(Story)
 class StoryIndex(AlgoliaIndex):
-    fields = ('name', 'slug', 'coordinate', 'short_desc', 'geocoding', 'created_at', 'updated_at',)
-
-    geo_field = 'coordinate'
+    fields = ('name', 'slug', 'coordinate', 'google_place_id', 'description', 'created_at', 'updated_at',)
+    geo_field = 'algolia_location'
     settings = {'searchableAttributes': ['name', 'short_desc']}
     index_name = 'story_index'
