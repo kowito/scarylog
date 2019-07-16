@@ -24,6 +24,7 @@ django-ckeditor = "*"
 django-stdimage = "*"
 django_select2 = "*"
 algoliasearch-django = "*"
+google-cloud-translate = "*"
 
 [requires]
 python_version = "3.7"
