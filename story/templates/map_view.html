@@ -3,6 +3,13 @@
 
 {% block extrastyle %}
     <style media="screen">
+        html,body {
+          height: 100%;
+        }
+        .card-story{
+            margin: 1rem;    
+        }
+        
         .section-search {
             z-index: 4;
             background-color: #fff;
@@ -13,6 +20,7 @@
         .section-searchhead {
             padding: 13px 15px 0 15px;
         }
+
         .box-filter {
             border-bottom: 1px solid #000;
             padding-bottom: 10px;
@@ -71,9 +79,7 @@
                 transform: rotate(360deg);
             }
         }
-        .card {
-            cursor: zoom-in;
-        }
+
         .card-text em,
         .card-title em {
             background-color: yellow;
@@ -83,8 +89,8 @@
 {% endblock extrastyle %}
 
 {% block content %}
-    <div class="container-fluid wrap d-none d-lg-block">
-        <div class="row" style="height:100%;overflow-y:hidden">
+    <div class="container-fluid wrap h-100">
+        <div class="row h-100">
             <!-- Map -->
             <div class="p-0 col-lg-5" id="divMap"></div>
             <div class="overlay-white"></div>
@@ -105,7 +111,7 @@
                 </div>
 
                 <!-- Search contents -->
-                <div class="box-searchtopic px-0">
+                <div class="box-searchtopic px-0 h-100">
 
                     <!-- Option + Config -->
                     <div class="row section-searchbody pt-0">
@@ -119,7 +125,7 @@
                     </div>
 
                     <!-- Items List -->
-                    <div class="row align-items-start section-result-stock d-flex justify-content-center">
+                    <div class="row align-items-start section-result-stock d-flex justify-content-center h-100">
                     </div>
                 </div>
 
@@ -128,40 +134,32 @@
     </div>
 
     {% verbatim handlebar %}
-        <script id="h-item-card" type="text/x-handlebars-template">
-            <div class="row">
-                {{#each stories}}
-                <div class="col-sm-6">
-                    <div class="card h-100 text-white bg-dark card-story" data-story="{{ objectID }}">
-                        <img class="card-img-top" src="{% endverbatim handlebar %}{% static "bg.jpg" %}{% verbatim handlebar %}" alt="{{ name }}">
+    <script id="h-item-card" type="text/x-handlebars-template">
+        <div class="row no-gutters">
+            {{#each stories}}
+                <div class="col-sm-4">
+                    <div class="card card-story" data-story="{{ objectID }}">
                         <div class="card-body">
-                            <h5 class="card-title">{{{name}}}</h5>
-                            <p class="card-text">
-                                {{{short_desc}}}
-                            </p>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                <small class="text-muted">Last updated 3 mins ago</small>
-                            </p>
-                        </div>
-                        <div class="card-body">
-                            <a href="{{ url }}" class="btn btn-indigo btn-rounded btn-md" target="_blank">
-                                {% endverbatim handlebar %}{% trans "Read detail" %}{% verbatim handlebar %}
-                            </a>
+                            <h5 class="card-title"><a href="{{ url }}">{{{name}}}</a></h5>
+                            <p>{{{short_desc}}}</p>
+
+
+                            <small class="text-muted">Since {{{created_at}}}</small>
                         </div>
                     </div>
                 </div>
-                {{else}}
-                    {% endverbatim handlebar %}{% trans "No results found" %}{% verbatim handlebar %}
-                {{/each}}
-            </div>
-        </script>
+            {{else}}
+                {% endverbatim handlebar %}{% trans "No results found" %}{% verbatim handlebar %}
+            {{/each}}
+        </div>
+    </script>
     {% endverbatim handlebar %}
-{% endblock %}
 
+{% endblock %}
+{% block footer %}{% endblock footer %}
 {% block extrajs %}
     {{ block.super }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&callback=initMap&libraries=geometry"
             async
             defer></script>
@@ -169,6 +167,7 @@
     <script type="text/javascript">
         function initMap() {
             // Global vars
+            
             var map = new google.maps.Map(document.getElementById('divMap'), {
                 center: {lat: 13.7563309, lng: 100.644},
                 zoom: 12,
@@ -272,7 +271,7 @@
 
             });
             var ajaxRequest;
-            var markers = [];
+            // var markers = [];
             window.map = map;
 
             function processSearch() {
@@ -288,39 +287,39 @@
                 $('input[name="searchkeyword"]').attr('readonly', false);
             }
 
-            function focusStory(marker) {
-                // Map view point
-                map.panTo(marker.getPosition());
-                //var zoomLevel =  map.getZoom();
-                map.setZoom(14);
+            // function focusStory(marker) {
+            //     // Map view point
+            //     map.panTo(marker.getPosition());
+            //     //var zoomLevel =  map.getZoom();
+            //     map.setZoom(14);
 
-                // Close all other infowindow
-                markers.forEach(m => m.infowindow.close());
-                marker.infowindow.open(map, marker);
+            //     // Close all other infowindow
+            //     markers.forEach(m => m.infowindow.close());
+            //     marker.infowindow.open(map, marker);
 
-                // Search result update
-                var scrollTop = $(`.card-story[data-story="${marker.objectID}"]`).offset().top;
-                $(".section-result-stock").animate({scrollTop}, 400);
-            }
+            //     // Search result update
+            //     var scrollTop = $(`.card-story[data-story="${marker.objectID}"]`).offset().top;
+            //     $(".section-result-stock").animate({scrollTop}, 400);
+            // }
 
-            function refreshMarkers(newMarkers) {
-                markers.map(marker => marker.setMap(null));
-                newMarkers.map(marker => marker.setMap(map));
-                markers = newMarkers;
+            // function refreshMarkers(newMarkers) {
+            //     markers.map(marker => marker.setMap(null));
+            //     newMarkers.map(marker => marker.setMap(map));
+            //     markers = newMarkers;
 
-                // Bind click event
-                $('.card-story').click(function (e) {
-                    var objectID = $(this).data('story');
-                    var marker = markers.find(m=>m.objectID==objectID);
-                    focusStory(marker);
-                });
+            //     // Bind click event
+            //     $('.card-story').click(function (e) {
+            //         var objectID = $(this).data('story');
+            //         var marker = markers.find(m=>m.objectID==objectID);
+            //         focusStory(marker);
+            //     });
 
-                markers.map(marker => {
-                    marker.addListener('click', function() {
-                        focusStory(marker);
-                    });
-                });
-            }
+            //     markers.map(marker => {
+            //         marker.addListener('click', function() {
+            //             focusStory(marker);
+            //         });
+            //     });
+            // }
 
             var groupBy = function(xs, key) {
               return xs.reduce(function(rv, x) {
@@ -347,6 +346,7 @@
                         var newMarkers = [];
                         // Group locations base on city_name
                         var groupStories = groupBy(data.hits, 'city_name');
+                        var formatDate = new Date()
                         data.hits.forEach(function (story) {
                             // Group stories
                             var marker = new google.maps.Marker({
@@ -357,7 +357,13 @@
                             });
                             story.url = "{% url 'story_story_detail' slug='0' %}".replace(/0/, story.slug);
                             story.name = story._highlightResult.name.value;
-                            story.short_desc = story._highlightResult.short_desc.value;
+                            story.short_desc = story._highlightResult.short_desc.value.substring(0, 100) + "...";
+
+                            // story.created_at = formatDate(story.created_at);
+                            story.created_at = moment(story.created_at).startOf('hour').fromNow();
+
+
+                            
 
                             marker.objectID = story.objectID;
                             marker.infowindow = new google.maps.InfoWindow({
