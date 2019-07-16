@@ -346,7 +346,7 @@
                         // Update markers
                         var newMarkers = [];
                         // Group locations base on place_id
-                        var groupStories = groupBy(data.hits, 'google_place_id');
+                        var groupStories = groupBy(data.hits, 'city_name');
                         data.hits.forEach(function (story) {
                             // Group stories
                             var marker = new google.maps.Marker({
