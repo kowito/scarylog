@@ -137,7 +137,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{{name}}}</h5>
                             <p class="card-text">
-                                {{{description}}}
+                                {{{short_desc}}}
                             </p>
                         </div>
                         <div class="card-body">
@@ -345,7 +345,7 @@
 
                         // Update markers
                         var newMarkers = [];
-                        // Group locations base on place_id
+                        // Group locations base on city_name
                         var groupStories = groupBy(data.hits, 'city_name');
                         data.hits.forEach(function (story) {
                             // Group stories
@@ -357,7 +357,7 @@
                             });
                             story.url = "{% url 'story_story_detail' slug='0' %}".replace(/0/, story.slug);
                             story.name = story._highlightResult.name.value;
-                            story.description = story._highlightResult.description.value;
+                            story.short_desc = story._highlightResult.short_desc.value;
 
                             marker.objectID = story.objectID;
                             marker.infowindow = new google.maps.InfoWindow({
