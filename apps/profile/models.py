@@ -4,10 +4,12 @@ from django.conf import settings
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.utils.translation import gettext as _
 
 GENDER_CHOICES = (
-    ('M', 'Male'),
-    ('F', 'Female'),
+    ('M', _('Male')),
+    ('F', _('Female')),
+    ('G', _('Genderqueer/Non-Binary')),
 )
 
 
@@ -21,7 +23,7 @@ class UserProfile(models.Model):
                               'normal': (240, 240, True),
                               'thumbnail': (160, 160, True)}
                           )
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True, blank=True)
     website = models.URLField(default='', null=True, blank=True)
     bio = models.TextField(default='', null=True, blank=True)
     phone = models.CharField(max_length=20, default='', null=True, blank=True)
