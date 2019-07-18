@@ -109,3 +109,4 @@ venv.bak/
 # Media
 uploads/*
 !uploads/.keep
+assets/profile/*
