@@ -14,6 +14,15 @@ from unidecode import unidecode
 from scarylog.settings import GOOGLE_API_KEY
 
 
+from cutkum.tokenizer import Cutkum
+
+
+def thai_slug(words):
+    ck = Cutkum()
+    split_word = " ".join(x for x in ck.tokenize(words))
+    return unidecode(split_word)
+
+
 class Story(models.Model):
 
     # Fields
@@ -50,7 +59,7 @@ class Story(models.Model):
         return u'%s' % self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(unidecode(self.name))
+        self.slug = slugify(thai_slug(self.name))
         self.short_desc = strip_tags(self.description)[:1000]
         if self.coordinate and self.__original_coordinate != self.coordinate:
             endpoint = f'https://maps.googleapis.com/maps/api/geocode/json?latlng={self.coordinate}&key={GOOGLE_API_KEY}'
