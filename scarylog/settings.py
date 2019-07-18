@@ -170,25 +170,20 @@ rollbar.init(**ROLLBAR)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets/'),
 ]
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
-MEDIA_URL = '/uploads/'
-
 
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
-
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_SECURE_URLS = True
 AWS_DEFAULT_ACL = 'private'
-STATIC_URL = '/assets/'
+STATIC_URL = '/assets/' if DEBUG else 'https://cdn.scarylog.com/'
 
 
 if not DEBUG or 'collectstatic' in sys.argv:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_CUSTOM_DOMAIN = 'cdn.scarylog.com'
-
 
 else:
 
@@ -237,7 +232,3 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'story',
     },
 }
-
-# Absolute path to static
-ABSOLUTE_STATIC_URL = os.getenv('ABSOLUTE_STATIC_URL', 'http://127.0.0.1:8000/assets')
-ABSOLUTE_WEBSITE_URL = os.getenv('ABSOLUTE_WEBSITE_URL', 'http://127.0.0.1:8000')

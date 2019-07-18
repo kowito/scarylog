@@ -50,12 +50,9 @@ class Story(models.Model):
 
     def save(self, *args, **kwargs):
         self.short_desc = strip_tags(self.description)[:1000]
-
-        # Auto detect coordinate changed
         if self.coordinate and self.__original_coordinate != self.coordinate:
             endpoint = f'https://maps.googleapis.com/maps/api/geocode/json?latlng={self.coordinate}&key={GOOGLE_API_KEY}'
             self.geocoding = requests.get(endpoint).json()
-        print(self.geocoding)
         if (not self.city_name) and self.geocoding:
             geo = json.loads(self.geocoding.__str__().replace("'", "\""))
             self.city_name = geo['results'][-2]['formatted_address']
