@@ -3,13 +3,14 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext as _
 from django.utils.html import strip_tags
-from django_extensions.db.fields import AutoSlugField
+from django.utils.text import slugify
 
 
 from location_field.models.plain import PlainLocationField
 from ckeditor.fields import RichTextField
 import requests
 import json
+from unidecode import unidecode
 from scarylog.settings import GOOGLE_API_KEY
 
 
@@ -17,7 +18,7 @@ class Story(models.Model):
 
     # Fields
     name = models.CharField(max_length=255, verbose_name=_("Story caption"))
-    slug = AutoSlugField(populate_from='name', blank=True)
+    slug = models.CharField(max_length=255, blank=True)
     description = RichTextField(verbose_name=_("Story"))
     short_desc = RichTextField(null=True, blank=True)
     city_name = models.TextField(null=True, blank=True)
@@ -49,6 +50,7 @@ class Story(models.Model):
         return u'%s' % self.name
 
     def save(self, *args, **kwargs):
+        self.slug = slugify(unidecode(self.name))
         self.short_desc = strip_tags(self.description)[:1000]
         if self.coordinate and self.__original_coordinate != self.coordinate:
             endpoint = f'https://maps.googleapis.com/maps/api/geocode/json?latlng={self.coordinate}&key={GOOGLE_API_KEY}'
