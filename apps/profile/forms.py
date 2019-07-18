@@ -4,13 +4,14 @@ from .models import UserProfile
 
 
 class UserForm(forms.ModelForm):
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']
 
 
 class UserProfileForm(forms.ModelForm):
-    phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
+    # phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
 
     class Meta:
         model = UserProfile
@@ -18,6 +19,7 @@ class UserProfileForm(forms.ModelForm):
 
 
 class ProfilePictureForm(forms.ModelForm):
+
     class Meta:
         model = UserProfile
         fields = ('photo', )
