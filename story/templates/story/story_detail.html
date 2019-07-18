@@ -60,9 +60,10 @@
 <div class="jumbotron vertical-center">
     <div class="story-caption">
         <h1 class="text-center">{{ object.name }}</h1>
-        <img src="{{STATIC_URL}}{{ object.author.profile.get_picture_thumbnail|default:'avatar.jpg'}}" class="rounded-circle mx-auto d-block profile" alt="{{ object.author }}">
+        <img src="{{STATIC_URL}}{{ object.author.profile.photo.thumbnail|default:'avatar.jpg'}}" class="rounded-circle mx-auto d-block profile" alt="{{ object.author }}">
         <div class="text-center author">{{ object.author }}</div>
         <div class="text-center ">{{ object.author }}</div>
+        
     </div>
 </div>
 <div class="container">

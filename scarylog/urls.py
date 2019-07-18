@@ -4,6 +4,7 @@ from story.views import StoryListView, map_view
 
 from scarylog import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),

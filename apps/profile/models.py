@@ -34,12 +34,6 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return "{}'s profile".format(self.user.username)
 
-    def get_picture_thumbnail(self):
-        if self.photo:
-            return f"{settings.MEDIA_URL}{self.photo.thumbnail}"
-        else:
-            return None
-
 
 User.profile = property(
     lambda u: UserProfile.objects.get_or_create(user=u)[0]

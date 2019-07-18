@@ -90,6 +90,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.media',
+                'django.template.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -186,7 +187,7 @@ if not DEBUG or 'collectstatic' in sys.argv:
     AWS_S3_CUSTOM_DOMAIN = 'cdn.scarylog.com'
 
 else:
-
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/')
     INSTALLED_APPS = INSTALLED_APPS + ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
     LOCATION_FIELD_PATH = STATIC_URL + 'location_field'
