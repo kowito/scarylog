@@ -151,6 +151,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/"                 title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"                 title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+                        </div>
                     </div>
                 </div>
 
@@ -168,6 +171,7 @@
                     </div>
                     <!-- Items List -->
                     <div class="row align-items-start section-result-stock d-flex justify-content-center h-100">
+
                     </div>
                 </div>
 
@@ -187,6 +191,7 @@
     <script type="text/javascript">
         function initMap() {
             // Global vars
+            // marker.png
             
             var map = new google.maps.Map(document.getElementById('divMap'), {
                 center: {lat: 13.7562922, lng: 100.5751353},
@@ -384,8 +389,15 @@
                                 position: {
                                     lat: parseFloat(story._geoloc.lat),
                                     lng: parseFloat(story._geoloc.lng)
-                                }
+                                },
+                                icon: '{% static 'marker.png' %}',
                             });
+
+
+
+                            
+
+
                             story.url = "{% url 'story_story_detail' name='0' %}".replace(/0/, story.name);
                             story.name = story._highlightResult.name.value;
                             story.short_desc = story._highlightResult.short_desc.value.substring(0, 100) + "...";
