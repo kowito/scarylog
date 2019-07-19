@@ -185,9 +185,7 @@
 {% block extrajs %}
     {{ block.super }}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&callback=initMap&libraries=geometry"
-            async
-            defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&callback=initMap&libraries=geometry" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
     <script type="text/javascript">
         function initMap() {
@@ -391,7 +389,7 @@
                                     lng: parseFloat(story._geoloc.lng)
                                 }
                             });
-                            story.url = "{% url 'story_story_detail' slug='0' %}".replace(/0/, story.slug);
+                            story.url = "{% url 'story_story_detail' name='0' %}".replace(/0/, story.name);
                             story.name = story._highlightResult.name.value;
                             story.short_desc = story._highlightResult.short_desc.value.substring(0, 100) + "...";
                             story.created_at = moment.unix(story.created_at).fromNow();                            

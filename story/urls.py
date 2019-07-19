@@ -18,8 +18,8 @@ urlpatterns += (
     # urls for Story
     # path('', views.StoryListView.as_view(), name='home'),
     path('create/', views.StoryCreateView.as_view(), name='story_story_create'),
-    path('detail/<slug:slug>/', views.StoryDetailView.as_view(), name='story_story_detail'),
-    path('update/<slug:slug>/', views.StoryUpdateView.as_view(), name='story_story_update'),
+    path('detail/<str:name>/', views.StoryDetailView.as_view(), name='story_story_detail'),
+    path('update/<int:pk>/', views.StoryUpdateView.as_view(), name='story_story_update'),
     path('map/', views.map_view, name="map_view"),
 
     # ajax requests

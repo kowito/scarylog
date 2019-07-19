@@ -9,7 +9,7 @@ class StorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Story
         fields = (
-            'slug',
+            'pk',
             'name',
             'coordinate',
             'description',

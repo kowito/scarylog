@@ -12,6 +12,6 @@ class StoryAdminForm(forms.ModelForm):
 
 class StoryAdmin(admin.ModelAdmin):
     form = StoryAdminForm
-    list_display = ['name', 'slug', 'coordinate', 'created_at', 'updated_at']
+    list_display = ['name', 'coordinate', 'created_at', 'updated_at']
 
 admin.site.register(Story, StoryAdmin)

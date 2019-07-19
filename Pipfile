@@ -24,8 +24,6 @@ django-ckeditor = "*"
 django-stdimage = "*"
 django_select2 = "*"
 algoliasearch-django = "*"
-unidecode = "*"
-cutkum = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,7 +1,7 @@
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import JsonResponse
 from algoliasearch_django import raw_search
 
@@ -38,6 +38,9 @@ class StoryCreateView(CreateView):
 
 class StoryDetailView(DetailView):
     model = Story
+
+    def get_object(self):
+        return Story.objects.get(name=self.kwargs["name"])
 
 
 @method_decorator(login_required, name='dispatch')

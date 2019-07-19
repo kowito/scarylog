@@ -27,7 +27,7 @@ class Story(models.Model):
 
     # Fields
     name = models.CharField(max_length=255, verbose_name=_("Story caption"))
-    slug = models.CharField(max_length=255, blank=True)
+    # slug = models.CharField(max_length=255, blank=True)
     description = RichTextField(verbose_name=_("Story"))
     short_desc = RichTextField(null=True, blank=True)
     city_name = models.TextField(null=True, blank=True)
@@ -59,7 +59,7 @@ class Story(models.Model):
         return u'%s' % self.name
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(thai_slug(self.name))
+        # self.slug = slugify(thai_slug(self.name))
         self.short_desc = strip_tags(self.description)[:1000]
         if self.coordinate and self.__original_coordinate != self.coordinate:
             endpoint = f'https://maps.googleapis.com/maps/api/geocode/json?latlng={self.coordinate}&key={GOOGLE_API_KEY}'
@@ -70,10 +70,10 @@ class Story(models.Model):
         super(Story, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('story_story_detail', args=(self.slug,))
+        return reverse('story_story_detail', kwargs={'name': self.name})
 
     def get_update_url(self):
-        return reverse('story_story_update', args=(self.slug,))
+        return reverse('story_story_update', kwargs={'pk': self.pk})
 
     def algolia_location(self):
         location = self.coordinate.split(",", 2)
