@@ -121,7 +121,6 @@
             text-decoration: none;   
         }
 
-
         .section-search{
           position: relative;
           float: left;
@@ -129,7 +128,6 @@
           height:100%;
           overflow-y: auto; 
         }
-
 
     </style>
 {% endblock extrastyle %}
@@ -168,7 +166,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Items List -->
                     <div class="row align-items-start section-result-stock d-flex justify-content-center h-100">
                     </div>
@@ -192,7 +189,7 @@
             // Global vars
             
             var map = new google.maps.Map(document.getElementById('divMap'), {
-                center: {lat: 13.7064351, lng: 100.5204735},
+                center: {lat: 13.7562922, lng: 100.5751353},
                 zoom: 14,
                 maxZoom: 14,
                 mapTypeControl: false,
@@ -305,7 +302,7 @@
             
 
             var ajaxRequest;
-            // var markers = [];
+            var markers = [];
             window.map = map;
 
             function processSearch() {
@@ -321,39 +318,39 @@
                 $('input[name="searchkeyword"]').attr('readonly', false);
             }
 
-            // function focusStory(marker) {
-            //     // Map view point
-            //     map.panTo(marker.getPosition());
-            //     //var zoomLevel =  map.getZoom();
-            //     map.setZoom(14);
+            function focusStory(marker) {
+                // Map view point
+                map.panTo(marker.getPosition());
+                //var zoomLevel =  map.getZoom();
+                map.setZoom(14);
 
-            //     // Close all other infowindow
-            //     markers.forEach(m => m.infowindow.close());
-            //     marker.infowindow.open(map, marker);
+                // Close all other infowindow
+                markers.forEach(m => m.infowindow.close());
+                marker.infowindow.open(map, marker);
 
-            //     // Search result update
-            //     var scrollTop = $(`.card-story[data-story="${marker.objectID}"]`).offset().top;
-            //     $(".section-result-stock").animate({scrollTop}, 400);
-            // }
+                // Search result update
+                var scrollTop = $(`.card-story[data-story="${marker.objectID}"]`).offset().top;
+                $(".section-result-stock").animate({scrollTop}, 400);
+            }
 
-            // function refreshMarkers(newMarkers) {
-            //     markers.map(marker => marker.setMap(null));
-            //     newMarkers.map(marker => marker.setMap(map));
-            //     markers = newMarkers;
+            function refreshMarkers(newMarkers) {
+                markers.map(marker => marker.setMap(null));
+                newMarkers.map(marker => marker.setMap(map));
+                markers = newMarkers;
 
-            //     // Bind click event
-            //     $('.card-story').click(function (e) {
-            //         var objectID = $(this).data('story');
-            //         var marker = markers.find(m=>m.objectID==objectID);
-            //         focusStory(marker);
-            //     });
+                // Bind click event
+                $('.card-story').click(function (e) {
+                    var objectID = $(this).data('story');
+                    var marker = markers.find(m=>m.objectID==objectID);
+                    focusStory(marker);
+                });
 
-            //     markers.map(marker => {
-            //         marker.addListener('click', function() {
-            //             focusStory(marker);
-            //         });
-            //     });
-            // }
+                markers.map(marker => {
+                    marker.addListener('click', function() {
+                        focusStory(marker);
+                    });
+                });
+            }
 
             var groupBy = function(xs, key) {
               return xs.reduce(function(rv, x) {
@@ -377,7 +374,7 @@
                         finishSearch();
 
                         // Update markers
-                        // var newMarkers = [];
+                        var newMarkers = [];
                         // Group locations base on city_name
                         var groupStories = groupBy(data.hits, 'city_name');
                         var formatDate = new Date()
@@ -397,7 +394,7 @@
                             marker.infowindow = new google.maps.InfoWindow({
                               content: `${story.name}`
                             });
-                            // newMarkers.push(marker);
+                            newMarkers.push(marker);
                         });
 
                         // Update html
@@ -405,7 +402,7 @@
                         var template = Handlebars.compile(source);
                         var html = template({stories: data.hits});
                         $('.section-result-stock').html(html);
-                        // refreshMarkers(newMarkers);
+                        refreshMarkers(newMarkers);
                     }
                 });
             }
