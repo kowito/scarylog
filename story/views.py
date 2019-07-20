@@ -65,4 +65,4 @@ def ajax_get_stories(request):
     params = {'insideBoundingBox': f'{lat1},{lng1},{lat2},{lng2}'}
     response = raw_search(Story, query, params)
 
-    return JsonResponse(response)
+    return JsonResponse(response, safe=False)
