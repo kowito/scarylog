@@ -92,6 +92,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
+                'scarylog.context_processors.template_global_params',
             ],
         },
     },
@@ -137,8 +138,9 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
-LOGIN_REDIRECT_URL = 'profile/update/'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "http" if DEBUG else "https"
+LOGIN_REDIRECT_URL = '/profile/update/'
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 AUTH_PROFILE_MODULE = 'apps.profile.UserProfile'
 
 DEFAULT_HTTP_PROTOCOL = "https"
