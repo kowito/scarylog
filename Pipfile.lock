@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3fcd1aba8965b7567b0989db871d720cd3830e20c3cfd573a187c8ba7bb898f8"
+            "sha256": "424c4794057798ea83692ae3cb5039350e64eefd28c1928856450594f75b11b4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -33,18 +33,18 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:7cfb8b0989fc32cc9e18590348bbfe679704cd84adece20b20b359e0b0db7840",
-                "sha256:d01be3d0d8cd04fd30547917411a26715fe299d5b071a980ecaea6062d7c9b20"
+                "sha256:04a32520a546ceb4bd97b4dea87d7c079b01c6ec55280bce86ca12fc80ac7e32",
+                "sha256:24aa9be2a87bb0a7ac1dff2dc5471dde837fcb96ffc30876d688971171889301"
             ],
             "index": "pypi",
-            "version": "==1.9.190"
+            "version": "==1.9.192"
         },
         "botocore": {
             "hashes": [
-                "sha256:10a88f73a4d3c88d4d807df4e0357120e30edbb037ad01f6e7457cf9cb2cc1a8",
-                "sha256:b04b9c9f49dd540fbcf1d1990382910d99926eedfb82eaff20527446240750a4"
+                "sha256:ecf8d872baec661e292e01d45f666fdc4a4eca716bbc6a7876223899a1a9d9d8",
+                "sha256:fbb621329cb41f3fcaa996ab938837ad78a4db6ad1d1a8ef48ec59a56f379049"
             ],
-            "version": "==1.12.190"
+            "version": "==1.12.192"
         },
         "certifi": {
             "hashes": [
@@ -104,6 +104,13 @@
             ],
             "index": "pypi",
             "version": "==1.7.2"
+        },
+        "django-dynamic-filenames": {
+            "hashes": [
+                "sha256:cabf107ed37dc3ea5edac9187313b90ca1792de116a522d35097d061b18535ef"
+            ],
+            "index": "pypi",
+            "version": "==1.1.4"
         },
         "django-extensions": {
             "hashes": [
@@ -386,10 +393,10 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:10a88f73a4d3c88d4d807df4e0357120e30edbb037ad01f6e7457cf9cb2cc1a8",
-                "sha256:b04b9c9f49dd540fbcf1d1990382910d99926eedfb82eaff20527446240750a4"
+                "sha256:ecf8d872baec661e292e01d45f666fdc4a4eca716bbc6a7876223899a1a9d9d8",
+                "sha256:fbb621329cb41f3fcaa996ab938837ad78a4db6ad1d1a8ef48ec59a56f379049"
             ],
-            "version": "==1.12.190"
+            "version": "==1.12.192"
         },
         "cached-property": {
             "hashes": [
