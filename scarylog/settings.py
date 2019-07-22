@@ -146,6 +146,12 @@ AUTH_PROFILE_MODULE = 'apps.profile.UserProfile'
 DEFAULT_HTTP_PROTOCOL = "https"
 SITE_ID = 1
 
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'SCOPE': ['email'],
+    }
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
