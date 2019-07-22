@@ -92,6 +92,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
+                'scarylog.context_processors.template_global_params',
             ],
         },
     },

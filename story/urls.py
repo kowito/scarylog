@@ -21,7 +21,4 @@ urlpatterns += (
     path('detail/<slug:slug>/', views.StoryDetailView.as_view(), name='story_story_detail'),
     path('update/<slug:slug>/', views.StoryUpdateView.as_view(), name='story_story_update'),
     path('map/', views.map_view, name="map_view"),
-
-    # ajax requests
-    url(r'^ajax-get-stories/$', views.ajax_get_stories, name='ajax_get_stories'),
 )
