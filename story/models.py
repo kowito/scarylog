@@ -1,20 +1,25 @@
-from django.urls import reverse
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.html import strip_tags
 from django.utils.text import slugify
 
+from scarylog.settings import GOOGLE_API_KEY
 
+from dynamic_filenames import FilePattern
+from stdimage import StdImageField
 from location_field.models.plain import PlainLocationField
 from ckeditor.fields import RichTextField
 import requests
 import json
 from unidecode import unidecode
-from scarylog.settings import GOOGLE_API_KEY
 
+# from cutkum.tokenizer import Cutkum
 
-from cutkum.tokenizer import Cutkum
+upload_to_pattern = FilePattern(
+    filename_pattern='images/{app_label:.25}/{uuid:base32}{ext}'
+)
 
 
 def thai_slug(words):
@@ -30,6 +35,10 @@ class Story(models.Model):
     # slug = models.CharField(max_length=255, blank=True)
     description = RichTextField(verbose_name=_("Story"))
     short_desc = RichTextField(null=True, blank=True)
+    image = StdImageField(upload_to=upload_to_pattern,
+                          variations={
+                              'og': (1200, 630, True)}
+                          )
     city_name = models.TextField(null=True, blank=True)
     coordinate = PlainLocationField(based_fields=['name'], zoom=12, verbose_name=_("Location"))
     geocoding = models.TextField(null=True, blank=True)
