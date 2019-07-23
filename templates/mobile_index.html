@@ -1,0 +1,154 @@
+{% load i18n %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <title>{% block title %}{% trans "Scarylog! : Location-base ghost story" %}{% endblock title %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Butcherman|Nosifer&display=swap" rel="stylesheet">
+    <style type="text/css">
+        html,
+        body{
+            color: #ccc;
+        }
+
+        p{
+            font-weight: 400;
+            font-style: normal;
+            font-size: 21px;
+            line-height: 1.58;
+            letter-spacing: -.003em;
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            color: rgba(0,0,0,.84);
+        }
+
+        nav{
+            background-color: #343a40;
+        }
+        .navbar-brand{
+            color: red !important;
+            font-family: 'Nosifer', cursive;"
+        }
+        h1{
+            color: red;
+            font-family: 'Butcherman', cursive;
+            padding-top: 1rem;
+        }
+        #map {
+            height: 100%;
+        }
+        .story-card{
+            margin-top: 2rem;
+        }
+        .created{
+            font-size: 0.8rem;
+        }
+        #sticky-footer {
+          flex-shrink: none;
+          margin-top: 5rem;
+        }
+        #nav-profile-photo{
+            height: auto;
+            max-width: 40px;
+        }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143316844-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-143316844-1');
+    </script>
+    {% block extrastyle %}
+    {% endblock extrastyle %}
+  </head>
+  
+  <header>
+    <div class="collapse bg-dark" id="navbarHeader">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-md-7 py-4">
+            <h4 class="text-white">{% trans 'ScaryLog' %}</h4>
+            <p class="text-muted">{% trans "The First Location base horror story platform. Share paranormal/scary short stories. Read the story nearby you!" %}</p>
+          </div>
+          <div class="col-sm-4 offset-md-1 py-4">
+            <h4 class="text-white">{% trans "Contact" %}</h4>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-white">{% trans "Like on Facebook" %}</a></li>
+              <li><a href="https://www.facebook.com/scarylog" class="text-white">{% trans "Email me" %}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+      <div class="container d-flex justify-content-between">
+        <a href="/" class="navbar-brand d-flex align-items-center"><strong>{% trans 'ScaryLog' %}</strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main role="main">
+
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">{% trans 'ScaryLog' %}</h1>
+        <p class="lead text-muted">{% trans "The First Location base horror story platform. Share paranormal/scary short stories. Read the story nearby you!" %}</p>
+        <p>
+          <a class="btn btn-outline-danger" href="{% url 'story_story_create' %}">{% trans "Tell your story" %}</a>
+        </p>
+      </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <div class="row">
+          {% for story in stories %}
+          <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+              <img class="card-img-top" data-src="holder.js/100px225?theme=lava&bg=55595c&fg=eceeef&text={{story.name}}" alt="{{story.name}}">
+              <div class="card-body">
+                <p class="card-text">{{story.short_desc|truncatechars_html:100}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <a href="{{story.get_absolute_url}}" class="btn btn-sm btn-outline-danger">View</a>
+                  </div>
+                  <small class="text-muted">{{story.created_at|timesince}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Back to top</a>
+      </p>
+      <p>Copyright &copy; scarylog.com</p>
+    </div>
+  </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/esm/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.min.js"></script>
+  </body>
+</html>
+
