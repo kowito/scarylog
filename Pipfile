@@ -23,6 +23,8 @@ django-ckeditor = "*"
 django-dynamic-filenames = "*"
 django-stdimage = "*"
 django_select2 = "*"
+algoliasearch-django = "*"
+django-user-agents = "*"
 psycopg2-binary = "*"
 rollbar = "*"
 

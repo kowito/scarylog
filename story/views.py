@@ -49,6 +49,12 @@ class StoryUpdateView(UpdateView):
 
 
 def map_view(request):
-    return render(request, 'map_view.html', {
+    context = {
         'GOOGLE_API_KEY': GOOGLE_API_KEY,
-    })
+    }
+    if request.user_agent.is_mobile or request.user_agent.is_tablet:
+        template = 'mobile_index.html'
+        context['stories'] = Story.objects.all()
+    else:
+        template = 'map_view.html'
+    return render(request, template, context)
