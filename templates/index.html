@@ -9,7 +9,7 @@
     margin-top: 3rem;
   }
 </style>
-    {% endblock extrastyle %}
+{% endblock extrastyle %}
 
 <div class="container">
   <div class="row">
@@ -25,7 +25,6 @@
           <small class="text-muted">{{ object.updated_at|timesince }}</small>
         </div>
       </div>
-
 
       {% if forloop.counter|divisibleby:3 %}
       </div>
