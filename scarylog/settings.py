@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'stdimage',
     'django_select2',
     'algoliasearch_django',
+    'django_user_agents',
     'story',
     'apps.profile',
 
@@ -72,9 +73,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
-
 ]
 
 ROOT_URLCONF = 'scarylog.urls'
