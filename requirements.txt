@@ -1,9 +1,9 @@
--i https://pypi.org/simple
+-i https://pypi.org/simple/
 algoliasearch-django==1.7.1
 algoliasearch==1.20.0
 boto3==1.9.193
-botocore==1.12.193
-certifi==2019.6.16
+botocore==1.12.253
+certifi==2019.9.11
 chardet==3.0.4
 defusedxml==0.6.0
 django-allauth==0.39.1
@@ -21,18 +21,18 @@ django-stdimage==4.1.0
 django-storages==1.7.1
 django-user-agents==0.4.0
 django==2.2.3
-djangorestframework==3.10.1
-docutils==0.14
+djangorestframework==3.10.3
+docutils==0.15.2
 idna==2.8
 jmespath==0.9.4
-oauthlib==3.0.2
-pillow==6.1.0
-progressbar2==3.42.0
+oauthlib==3.1.0
+pillow==6.2.0
+progressbar2==3.47.0
 psycopg2-binary==2.8.3
 python-dateutil==2.8.0 ; python_version >= '2.7'
 python-utils==2.3.0
 python3-openid==3.1.0
-pytz==2019.1
+pytz==2019.3
 requests-oauthlib==1.2.0
 requests==2.22.0
 rollbar==0.14.7
@@ -40,5 +40,5 @@ s3transfer==0.2.1
 six==1.12.0
 sqlparse==0.3.0
 ua-parser==0.8.0
-urllib3==1.25.3 ; python_version >= '3.4'
+urllib3==1.25.6 ; python_version >= '3.4'
 user-agents==2.0
