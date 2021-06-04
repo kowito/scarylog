@@ -1,13 +1,13 @@
--i https://pypi.org/simple
+-i https://pypi.org/simple/
 algoliasearch-django==1.7.1
 algoliasearch==1.20.0
 boto3==1.9.193
-botocore==1.12.193
-certifi==2019.6.16
-chardet==3.0.4
-defusedxml==0.6.0
+botocore==1.12.253
+certifi==2021.5.30
+chardet==4.0.0
+defusedxml==0.7.1
 django-allauth==0.39.1
-django-appconf==1.0.3
+django-appconf==1.0.4
 django-ckeditor==5.7.1
 django-crispy-forms==1.7.2
 django-dynamic-filenames==1.1.4
@@ -20,25 +20,25 @@ django-select2==7.1.0
 django-stdimage==4.1.0
 django-storages==1.7.1
 django-user-agents==0.4.0
-django==2.2.3
-djangorestframework==3.10.1
-docutils==0.14
-idna==2.8
-jmespath==0.9.4
-oauthlib==3.0.2
-pillow==6.1.0
-progressbar2==3.42.0
+django==2.2.21
+djangorestframework==3.12.4
+docutils==0.15.2
+idna==2.10
+jmespath==0.10.0
+oauthlib==3.1.1
+pillow==8.2.0
+progressbar2==3.53.1
 psycopg2-binary==2.8.3
-python-dateutil==2.8.0 ; python_version >= '2.7'
-python-utils==2.3.0
-python3-openid==3.1.0
-pytz==2019.1
-requests-oauthlib==1.2.0
-requests==2.22.0
+python-dateutil==2.8.1 ; python_version >= '2.7'
+python-utils==2.5.6
+python3-openid==3.2.0
+pytz==2021.1
+requests-oauthlib==1.3.0
+requests==2.25.1
 rollbar==0.14.7
 s3transfer==0.2.1
-six==1.12.0
-sqlparse==0.3.0
-ua-parser==0.8.0
-urllib3==1.25.3 ; python_version >= '3.4'
-user-agents==2.0
+six==1.16.0
+sqlparse==0.4.1
+ua-parser==0.10.0
+urllib3==1.25.11 ; python_version >= '3.4'
+user-agents==2.2.0
